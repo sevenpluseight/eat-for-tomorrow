@@ -4,7 +4,7 @@ function getRandomStat (min= -2, max = 2) {
 const days = [
   {
     day: 1,
-    title: "Morning Fuel",
+    title: "Morning Fuel ☀️",
     question: "You wake up starving. The first meal sets the vibe - what's your pick?",
     choices: [
       {
@@ -43,7 +43,7 @@ const days = [
   },
   {
     day: 2,
-    title: "Lunch Break",
+    title: "Lunch Break 🍽️",
     question: "Lunchtime hunger hits. Your stomach growls like a Pokémon.",
     choices: [
       {
@@ -82,7 +82,7 @@ const days = [
   },
   {
     day: 3,
-    title: "Grocery Run",
+    title: "Grocery Run 🛒",
     question: "You're at the store. The cart is rolling. What fills it?",
     choices: [
       {
@@ -121,7 +121,7 @@ const days = [
   },
   {
     day: 4,
-    title: "Late Night Munchies",
+    title: "Late Night Munchies 🌙",
     question: "Midnight snack attack! What do you reach for?",
     choices: [
       {
@@ -160,7 +160,7 @@ const days = [
   },
   {
     day: 5,
-    title: "Thirst Quest",
+    title: "Thirst Quest 🥵",
     question: "You're thirsty. Drinking water is a choice, but your lifestyle is also... a problem.",
     choices: [
       {
@@ -172,7 +172,7 @@ const days = [
         env: -1
       },
       {
-        emoji: "🧴",
+        emoji: "💧",
         label: "Reusable Bottle of Water",
         description: "Saves the planet, boring but elite choice.",
         health: +1,
@@ -199,7 +199,7 @@ const days = [
   },
   {
     day: 6,
-    title: "Beach Picnic",
+    title: "Beach Picnic 🏖️",
     question: "You packed for a chill beach day. The seagulls are already eyeing your food.",
     choices: [
       {
@@ -238,7 +238,7 @@ const days = [
   },
   {
     day: 7,
-    title: "Gaming Marathon Snack",
+    title: "Gaming Marathon Snack 🎮",
     question: "You're 5 hours into a game. Hunger strikes during boss fight loading screen.",
     choices: [
       {
@@ -277,7 +277,7 @@ const days = [
   },
   {
     day: 8,
-    title: "Road Trip Gas Station Stop",
+    title: "Road Trip Gas Station Stop ⛽",
     question: "You're at a dusty gas station shop. The choices are... questionable.",
     choices: [
       {
@@ -316,7 +316,7 @@ const days = [
   },
   {
     day: 9,
-    title: "Birthday Party",
+    title: "Birthday Party 🎉",
     question: "Cake everywhere. Everyone's yelling \"EAT!\" What's your move?",
     choices: [
       {
@@ -355,7 +355,7 @@ const days = [
   },
   {
     day: 10,
-    title: "Lazy Sunday Brunch",
+    title: "Lazy Sunday Brunch 🛌",
     question: "You refuse to get out of pajamas. What's for brunch?",
     choices: [
       {
@@ -394,7 +394,7 @@ const days = [
   },
   {
     day: 11,
-    title: "Cafeteria Chaos",
+    title: "Cafeteria Chaos 🍱",
     question: "The line is long, food smells... mysterious. What do you choose?",
     choices: [
       {
@@ -433,7 +433,7 @@ const days = [
   },
   {
     day: 12,
-    title: "Street Food Festival",
+    title: "Street Food Festival 🎪",
     question: "Rows of sizzling stalls. The smell of grilled food fills the air. What do you pick?",
     choices: [
       {
@@ -472,7 +472,7 @@ const days = [
   },
   {
     day: 13,
-    title: "Work Stress Snack",
+    title: "Work Stress Snack 🖥️",
     question: "Deadline tomorrow. Stress = hunger. What's in your hand?",
     choices: [
       {
@@ -511,7 +511,7 @@ const days = [
   },
   {
     day: 14,
-    title: "Final Feast",
+    title: "Final Feast 🎊",
     question: "The journey ends. One last choice before the story closes.",
     choices: [
       {
