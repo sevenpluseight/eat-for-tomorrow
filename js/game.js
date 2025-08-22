@@ -144,6 +144,7 @@ function restartGame() {
         wallet: 0,
         env: 0
     };
+    statsContainer.style.display = "block"; 
     updateStats();
     showDay();
 }
