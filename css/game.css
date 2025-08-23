@@ -132,10 +132,10 @@ p {
     font-size: clamp(1rem, 1.2vw + 0.5rem, 1.2rem);
     border-radius: 10px;
     border: none;
-    background-color: #FF6F61;  /* custom color */
+    background-color: green; 
     color: white;
     cursor: pointer;
-    font-family: 'Comic Sans MS', cursive, sans-serif;  /* example font */
+    font-family: 'Comic Sans MS', cursive, sans-serif;  
     font-weight: bold;
     transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -144,7 +144,7 @@ p {
 /* Hover effect */
 .play-again-btn:hover {
     transform: scale(1.1);
-    background-color: #FF3B2E;  /* darker shade */
+    background-color: lightseagreen;  /* darker shade */
 }
 
 /* Click effect */
@@ -196,7 +196,7 @@ body.dark-mode .mode-icon:last-child { /* Moon icon highlighted */
     opacity: 0.4;
 }
 
-/* ----- Toggle slider (same as before) ----- */
+/* ----- Toggle slider ----- */
 .switch {
   position: relative;
   display: inline-block;
@@ -282,10 +282,10 @@ body.dark-mode .final-stats-container {
 
 /* Play Again Button Dark mode styling */
 body.dark-mode .play-again-btn {
-    background-color: #FF8A65;
+    background-color: lightblue;
     color: #000;
 }
 
 body.dark-mode .play-again-btn:hover {
-    background-color: #FF7043;
+    background-color: deepskyblue;
 }
