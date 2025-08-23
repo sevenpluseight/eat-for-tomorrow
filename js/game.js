@@ -130,12 +130,22 @@ function showEnding() {
     }
 
     gameContainer.innerHTML = `
-        <h2>${endingTitle}</h2>
-        <p>${endingTagline}</p>
-        <p>Final Stats:</p>
-        <p>${getStatsEmojis()}</p>
-        <button onclick="restartGame()">Play Again</button>
+        <div class="ending-container fade-in" id="ending-content">
+            <h2>${endingTitle}</h2>
+            <p>${endingTagline}</p>
+            <p>Final Stats:</p>
+            <div class="final-stats-container">
+                <p>${getStatsEmojis()}</p>
+            </div>
+            <div class="play-again-wrapper">
+                <button onclick="restartGame()" class="play-again-btn">Play Again</button>
+            </div>
+        </div>
     `;
+
+    // Trigger fade-in
+    const endingContent = document.getElementById('ending-content');
+    setTimeout(() => endingContent.classList.add('show'), 10);
 }
 
 function getStatsEmojis() {

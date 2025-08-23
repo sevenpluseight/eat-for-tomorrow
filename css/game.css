@@ -104,6 +104,64 @@ p {
     }
 }
 
+.ending-container {
+    text-align: center;
+    padding: 1rem;
+}
+
+.final-stats-container {
+    display: inline-block;          /* shrink to content width */
+    background-color:white;      /* light card color */
+    color: #333;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.play-again-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.play-again-btn {
+    padding: 0.6rem 1.6rem;
+    font-size: clamp(1rem, 1.2vw + 0.5rem, 1.2rem);
+    border-radius: 10px;
+    border: none;
+    background-color: #FF6F61;  /* custom color */
+    color: white;
+    cursor: pointer;
+    font-family: 'Comic Sans MS', cursive, sans-serif;  /* example font */
+    font-weight: bold;
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Hover effect */
+.play-again-btn:hover {
+    transform: scale(1.1);
+    background-color: #FF3B2E;  /* darker shade */
+}
+
+/* Click effect */
+.play-again-btn:active {
+    transform: scale(0.95);
+}
+
+/* Pulse animation to attract attention */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.play-again-btn {
+    animation: pulse 2s infinite;
+}
+
 /* Dark Mode Toggle Switch */
 .dark-mode-toggle {
     position: fixed;
@@ -213,4 +271,21 @@ body.dark-mode .choice-btn:hover {
 body.dark-mode .floating-change {
     background: rgba(255,255,255,0.2);
     color: #fff;
+}
+
+/* Final Stats Container Dark mode adjustments */
+body.dark-mode .final-stats-container {
+    background-color: rgba(255,255,255,0.1);  /* subtle card in dark mode */
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Play Again Button Dark mode styling */
+body.dark-mode .play-again-btn {
+    background-color: #FF8A65;
+    color: #000;
+}
+
+body.dark-mode .play-again-btn:hover {
+    background-color: #FF7043;
 }
