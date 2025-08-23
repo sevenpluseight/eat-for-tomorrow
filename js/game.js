@@ -46,7 +46,13 @@ function showDay() {
         });
     });
 } 
+
+let isAnswering = false;
+
 function handleChoice(choiceIndex) {
+    if (isAnswering) return; // Prevent multiple clicks
+    isAnswering = true;
+
     const choice = days[currentDay].choices[choiceIndex];
 
     const healthChange = typeof choice.health === "function" ? choice.health() : choice.health;
@@ -68,6 +74,8 @@ function handleChoice(choiceIndex) {
         } else {
             showEnding();
         }
+
+        isAnswering = false; // Reset for next question
     });
 }
 
