@@ -24,7 +24,7 @@ const days = [
         env: +1
       },
       {
-        emoji: "☕",
+        emoji: "☕️",
         label: "Coffee Only",
         description: "Fuel of champions... or zombies.",
         health: -1,
