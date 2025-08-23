@@ -1,0 +1,216 @@
+/* Game Container */
+#game-container {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    margin: 5vh auto 2vh auto; /* vertical spacing */
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Stats Container */
+#stats-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    z-index: 100;
+}
+
+/* Titles and Paragraphs */
+h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+p {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Choice Buttons */
+#choices-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.choice-btn {
+    flex: 1 1 40%; /* grow/shrink, base 40% width */
+    max-width: 300px;
+    padding: 0.6rem 1rem;
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.choice-btn:hover {
+    transform: scale(1.05);
+    background-color: #e0f7fa;
+}
+
+/* Fade animation */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+.fade-in.show {
+    opacity: 1;
+}
+
+/* Floating Change Animation */
+.floating-change {
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+    font-weight: bold;
+    transition: all 2.0s ease-out;
+    pointer-events: none; /* avoid interfering with clicks */
+}
+
+/* Media Queries for small screens */
+@media (max-width: 500px) {
+    #choices-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .choice-btn {
+        width: 80%;
+    }
+
+    #stats-container {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+/* Dark Mode Toggle Switch */
+.dark-mode-toggle {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* space between icons and toggle */
+    font-size: 1.2rem; /* icon size */
+}
+
+.mode-icon {
+    pointer-events: none; /* icons not clickable */
+    transition: opacity 0.3s;
+}
+
+/* Highlight current mode */
+body.dark-mode .mode-icon:first-child { /* Sun icon hidden in dark */
+    opacity: 0.4;
+}
+
+body.dark-mode .mode-icon:last-child { /* Moon icon highlighted */
+    opacity: 1;
+}
+
+.mode-icon:first-child { /* Sun icon visible in light mode */
+    opacity: 1;
+}
+
+.mode-icon:last-child { /* Moon icon dim in light mode */
+    opacity: 0.4;
+}
+
+/* ----- Toggle slider (same as before) ----- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 26px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* ----- Dark Mode Styles ----- */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode #game-container {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode #stats-container {
+    background: rgba(50, 50, 50, 0.85);
+    color: #f0f0f0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .choice-btn {
+    background-color: #333;
+    color: #f0f0f0;
+    border: 1px solid #555;
+}
+
+body.dark-mode .choice-btn:hover {
+    background-color: #444;
+}
+
+body.dark-mode .floating-change {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}

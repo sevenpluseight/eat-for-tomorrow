@@ -27,12 +27,18 @@ function showDay() {
     }).join("");
 
     gameContainer.innerHTML = `
-        <h2>Day ${day.day} - ${day.title}</h2>
-        <p>${day.question}</p>
-        <div id="choices-container">
-            ${choicesHTML}
+        <div class="fade-in" id="day-content">
+            <h2>Day ${day.day} - ${day.title}</h2>
+            <p>${day.question}</p>
+            <div id="choices-container">
+                ${choicesHTML}
+            </div>
         </div>
     `;
+
+    // Trigger fade-in
+    const contentDiv = document.getElementById('day-content');
+    setTimeout(() => contentDiv.classList.add('show'), 10);
 
     document.querySelectorAll('.choice-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -52,22 +58,21 @@ function handleChoice(choiceIndex) {
     playerStats.wallet += walletChange;
     playerStats.env += envChange;
 
-    // Show floating change
-    showFloatingChange(healthChange, walletChange, envChange, choiceIndex);
     updateStats();
-
     currentDay++;
 
-    if (currentDay < days.length) {
-        showDay();
-    } else {
-        showEnding();
-    }
+    // Show floating and only proceed when animation is done
+    showFloatingChange(healthChange, walletChange, envChange, choiceIndex, () => {
+        if (currentDay < days.length) {
+            showDay();
+        } else {
+            showEnding();
+        }
+    });
 }
 
-function showFloatingChange(healthChange, walletChange, envChange, choiceIndex) {
+function showFloatingChange(healthChange, walletChange, envChange, choiceIndex, callback) {
     const btn = document.querySelector(`.choice-btn[data-index="${choiceIndex}"]`);
-
     const floating = document.createElement('div');
     floating.classList.add('floating-change');
 
@@ -82,17 +87,21 @@ function showFloatingChange(healthChange, walletChange, envChange, choiceIndex) 
     floating.style.position = 'absolute';
     floating.style.left = rect.left + window.scrollX + 'px';
     floating.style.top = rect.top + window.scrollY - 30 + 'px';
+    floating.style.opacity = 1;
 
     document.body.appendChild(floating);
 
+    // Animate floating mark
     setTimeout(() => {
-    floating.style.top = rect.top + window.scrollY - 60 + 'px';
-    floating.style.opacity = 0;
+        floating.style.top = rect.top + window.scrollY - 60 + 'px';
+        floating.style.opacity = 0;
     }, 10);
 
+    // Remove floating mark **after animation ends**, then call callback
     setTimeout(() => {
         floating.remove();
-    }, 2000);
+        if (callback) callback(); // proceed to next question
+    }, 800); // match your CSS transition duration
 }
 
 function showEnding() {
@@ -104,19 +113,19 @@ function showEnding() {
     const { health, wallet, env } = playerStats;
 
     if (health <= -3 && wallet <= 2 && env <= -2) {
-        endingTitle = "Fast Food Fallout 🍔💥";
-        endingTagline = "💀🌍 Junk wins, you and the planet lose!";
+        endingTitle = "🍔 Fast Food Fallout 💥";
+        endingTagline = "💀 Junk wins, you and the planet lose! 🌍";
     } else if (health >= 5 && env>= 5) {
-        endingTitle = "Eco Hero 🌱💪";
-        endingTagline = "🥗💚 You saved the world with your healthy choices!";
+        endingTitle = "🌱 Eco Hero 💪";
+        endingTagline = "💚 You saved the world with your healthy choices!";
     } else if (health <= 4 && wallet >= 5 && env <= -1) {
-        endingTitle = "Wealthy but Wasteful 💰🏭";
-        endingTagline = "🛍️🔥Saved cash, but your planet took a hit.";
+        endingTitle = "💰 Wealthy but Wasteful 🏭";
+        endingTagline = "🔥 Saved cash, but your planet took a hit. 🧨";
     } else if (health >= 5 && wallet <= -1) {
-        endingTitle = "Health Over Wealth 🥦💪";
-        endingTagline = "💸⚡You ate like a champ… your budget didn't survive!";
+        endingTitle = "🥦 Health Over Wealth 💪";
+        endingTagline = "⚡You ate like a champ… your budget didn't survive! 💸";
     } else {
-        endingTitle = "Middle Path ⚖️🌤️";
+        endingTitle = "⚖️ Middle Path 🌤️";
         endingTagline = "🥗🪙🌿 Balanced choices kept you steady — not too good, not too bad.";
     }
 
@@ -148,6 +157,13 @@ function restartGame() {
     updateStats();
     showDay();
 }
+
+// Dark Mode Toggle
+const darkSwitch = document.getElementById('dark-mode-switch');
+
+darkSwitch.addEventListener('change', () => {
+    document.body.classList.toggle('dark-mode', darkSwitch.checked);
+});
 
 updateStats();
 showDay();
