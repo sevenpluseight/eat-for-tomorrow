@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/landing-page.css">
+  <title>Eat For Tomorrow</title>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container" style="display:flex; align-items:center; justify-content:center;">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+        <li class="nav-item"><a href="#how-to-play" class="nav-link">How to Play</a></li>
+      </ul>
+      <!-- Theme toggle button -->
+      <div class="nav-right">
+        <button id="theme-toggle" class="theme-toggle-btn">
+          <img id="theme-icon" src="assets/icons/light-mode.svg" alt="Light mode" />
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="emoji-bg">
+      <span class="emoji" data-quote="Healthy food, happy mood!">🍎</span>
+      <span class="emoji" data-quote="Life is short, eat dessert first!">🎂</span>
+      <span class="emoji" data-quote="Fries before guys.">🍟</span>
+      <span class="emoji" data-quote="You carrot be serious!">🥕</span>
+      <span class="emoji" data-quote="Chicken me crazy!">🍗</span>
+      <span class="emoji" data-quote="Bagel-ing the question!">🥯</span>
+      <span class="emoji" data-quote="Sip happens.">🥤</span>
+      <span class="emoji" data-quote="Lettuce turnip the beet!">🥬</span>
+      <span class="emoji" data-quote="Ice cream is cheaper than therapy.">🍦</span>
+      <span class="emoji" data-quote="You can't make everyone happy. You're not a taco.">🥪</span>
+      <span class="emoji" data-quote="Burger me crazy!">🍔</span>
+      <span class="emoji" data-quote="I'm just a potato.">🥔</span>
+      <span class="emoji" data-quote="Honey, I'm home!">🍯</span>
+      <span class="emoji" data-quote="Egg-cited for breakfast!">🍳</span>
+    </div>
+    <h1 class="hero-title">Eat For Tomorrow</h1>
+    <p class="hero-tagline">Your plate decides your fate. 🍽️</p>
+    <a href="game.html" class="hero-btn">Start Game 🎮</a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <h1 class="about-title">About</h1>
+
+    <div class="about-card">
+      <p>
+        <strong>Eat For Tomorrow</strong> is a playful 14-day food journey where your daily meal choices shape not just your health, but also your wallet and the planet. 
+        Each round puts you in funny, sometimes tricky scenarios — from midnight fridge raids 
+        to street food festivals. Every choice matters: pick wisely and you might end up a healthy eco-hero 🌳, 
+        or maybe broke but happy with cake 🎂. 
+        It’s part story, part game, and all about showing how our little decisions add up.
+      </p>
+    </div>
+
+    <div class="about-emoji">
+      <div class="emoji-card">
+        <span class="emoji">❤️</span>
+        <span class="arrow-heart">→</span>
+        <h3 class="emoji-title-health">Health</h3>
+      </div>
+
+      <div class="emoji-card">
+        <span class="emoji">💰</span>
+        <span class="arrow-wallet">→</span>
+        <h3 class="emoji-title-wallet">Wallet</h3>
+      </div>
+
+      <div class="emoji-card">
+        <span class="emoji">🌳</span>
+        <span class="arrow-environment">→</span>
+        <h3 class="emoji-title-environment">Environment</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section-->
+  <section id="features" class="features-section">
+    <h1 class="features-title">Features</h1>
+
+    <div class="features-container">
+      <div class="feature-card">
+        <!-- <span class="feature-icon">🎮</span> -->
+        <h3 class="feature-title">🎮 14-Day Food Journey</h3>
+        <p class="feature-info">
+          Face two weeks of quirky food choices, from greasy burgers to suspicious leftovers. Every meal shapes your story.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <!-- <span class="feature-icon">📊</span> -->
+        <h3 class="feature-title">📊 Stats That React</h3>
+        <p class="feature-info">
+          Your health, wallet, and environment shift with every bite. Simple, instant feedback — no boring charts.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <!-- <span class="feature-icon">🥗</span> -->
+        <h3 class="feature-title">🥗 Multiple Endings</h3>
+        <p class="feature-info">
+          End as an eco hero, broke but healthy, or a fast-food cautionary tale. Your diet decides your destiny.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Play Section -->
+  <section id="how-to-play" class="how-to-play-section">
+    <h1 class="how-to-play-title">How to Play</h1>
+
+    <div class="how-to-play-container">
+      <div class="how-to-play-card" data-icon="🚀">
+        <h3 class="how-to-play-step">Start Your Journey</h3>
+        <p class="how-to-play-info">
+          Click start and dive into a 14-day food adventure.
+          <a href="game.html" class="hero-btn">Start Game 🎮</a>
+        </p>
+      </div>
+
+      <div class="how-to-play-card" data-icon="🤏">
+        <h3 class="how-to-play-step">Make Your Choices</h3>
+        <p class="how-to-play-info">
+          Each day, pick one meal. Every choice changes your health, wallet, and the planet.
+        </p>
+      </div>
+
+      <div class="how-to-play-card" data-icon="🎖️">
+        <h3 class="how-to-play-step">Discover Your Ending</h3>
+        <p class="how-to-play-info">
+          After 14 days, see where your path leads — eco hero, fast-food fallout, or somewhere in between.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>Made with ❤️ by Keluar</p>
+      <a href="https://github.com/sevenpluseight/eat-for-tomorrow" target="_blank" class="github-link">
+      <img id="github-icon" src="assets/icons/github-dark.svg" alt="GitHub" class="github-icon" />
+      View our GitHub repository
+      </a>
+    </div>
+  </footer>
+
+  <button id="backToTop" class="back-to-top">
+    <img src="assets/icons/arrow-up.svg" alt="Back to Top" class="back-to-top-icon"/>
+  </button>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
