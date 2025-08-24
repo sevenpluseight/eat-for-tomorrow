@@ -6,18 +6,48 @@ let playerStats = {
 };
 
 const gameContainer = document.getElementById('game-container');
-const statsContainer = document.getElementById('stats-container');  
+const statsContainer = document.getElementById('stats-container');
 
 setupMarkers();
 moveCharacter(0); // Start at Day 1 position
 
-function updateStats() {
-    let healthEmoji = playerStats.health <= -2 ? "🤒" : playerStats.health >=2 ? "😊" : "😐";
-    let walletEmoji = playerStats.wallet <= 0 ? "🪙" : playerStats.wallet >=5 ? "💎" : "💰";
-    let envEmoji = playerStats.env <= -2 ? "🏭" : playerStats.env >=2 ? "🌳" : "🌿";
+// Apple saved theme from localStorage - change the theme on landing page
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark-mode");
+} else {
+  document.body.classList.remove("dark-mode");
+}
 
-    statsContainer.innerHTML = `
-    Health: ${healthEmoji} | Wallet: ${walletEmoji} | Environment: ${envEmoji}`;
+// function updateStats() {
+//     let healthEmoji = playerStats.health <= -2 ? "🤒" : playerStats.health >=2 ? "😊" : "😐";
+//     let walletEmoji = playerStats.wallet <= 0 ? "🪙" : playerStats.wallet >=5 ? "💎" : "💰";
+//     let envEmoji = playerStats.env <= -2 ? "🏭" : playerStats.env >=2 ? "🌳" : "🌿";
+
+//     statsContainer.innerHTML = `
+//     Health: ${healthEmoji} | Wallet: ${walletEmoji} | Environment: ${envEmoji}`;
+// }
+
+function updateStats() {
+  let healthIcon = playerStats.health <= -2 
+    ? '<i class="fa-solid fa-hospital stat-danger"></i>' 
+    : playerStats.health >= 2 
+      ? '<i class="fa-solid fa-heart stat-good"></i>' 
+      : '<i class="fa-regular fa-face-meh stat-neutral"></i>';
+
+  let walletIcon = playerStats.wallet <= 0 
+    ? '<i class="fa-solid fa-coins stat-coins"></i>' 
+    : playerStats.wallet >= 5 
+      ? '<i class="fa-solid fa-gem stat-gem"></i>' 
+      : '<i class="fa-solid fa-sack-dollar stat-wealth"></i>';
+
+  let envIcon = playerStats.env <= -2 
+    ? '<i class="fa-solid fa-industry stat-polluted"></i>' 
+    : playerStats.env >= 2 
+      ? '<i class="fa-solid fa-tree stat-green"></i>' 
+      : '<i class="fa-solid fa-leaf stat-leaf"></i>';
+
+  statsContainer.innerHTML = `
+    Health: ${healthIcon} | Wallet: ${walletIcon} | Environment: ${envIcon}`;
 }
 
 function showDay() {
@@ -122,11 +152,11 @@ function showFloatingChange(healthChange, walletChange, envChange, choiceIndex, 
         floating.style.opacity = 0;
     }, 10);
 
-    // Remove floating mark **after animation ends**, then call callback
+    // Remove floating mark after animation ends then call callback
     setTimeout(() => {
         floating.remove();
         if (callback) callback(); // proceed to next question
-    }, 800); // match your CSS transition duration
+    }, 800);
 }
 
 function showEnding() {
@@ -156,7 +186,7 @@ function showEnding() {
         endingTagline = "⚡You ate like a champ… your budget didn't survive! 💸";
     } else {
         endingTitle = "⚖️ Middle Path 🌤️";
-        endingTagline = "🥗🪙🌿 Balanced choices kept you steady — not too good, not too bad.";
+        endingTagline = "🥗 🪙 🌿 Balanced choices kept you steady — not too good, not too bad.";
     }
 
     gameContainer.innerHTML = `
@@ -196,7 +226,7 @@ function restartGame() {
     
     const character = document.getElementById("character");
     if (character) {
-        character.textContent = "🏃‍♀️‍➡️"; 
+        character.innerHTML = '<i class="fa-solid fa-person-running"></i>'; 
     }
 
     statsContainer.style.display = "block"; 
@@ -207,17 +237,17 @@ function restartGame() {
 }
 
 // Dark Mode Toggle
-const darkSwitch = document.getElementById('dark-mode-switch');
+// const darkSwitch = document.getElementById('dark-mode-switch');
 
-darkSwitch.addEventListener('change', () => {
-    document.body.classList.toggle('dark-mode', darkSwitch.checked);
-});
+// darkSwitch.addEventListener('change', () => {
+//     document.body.classList.toggle('dark-mode', darkSwitch.checked);
+// });
 
 function setupMarkers() {
     const totalDays = 14;
     const markers = document.getElementById("markers");
 
-    markers.innerHTML = ""; // clear first
+    markers.innerHTML = "";
 
     for (let day = 1; day <= totalDays; day++) {
         const marker = document.createElement("div");
@@ -231,13 +261,12 @@ function setupMarkers() {
         if (day === 1 || day === 7 || day === 14) {
             marker.textContent = day;
         } else {
-            marker.textContent = "•"; // small dot
+            marker.textContent = "•";
         }
 
         markers.appendChild(marker);
     }
 }
-
 
 function moveCharacter(dayIndex) {
     const totalDays = 14;
