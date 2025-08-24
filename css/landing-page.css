@@ -327,6 +327,7 @@
   text-align: center;
   background: linear-gradient(135deg, #d40101, #ffb74c, #0059ff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 5rem;
 }
@@ -416,6 +417,7 @@
   text-align: center;
   background: linear-gradient(135deg, #d40101, #ffb74c, #0059ff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 5rem;
 }
@@ -480,6 +482,7 @@
   text-align: center;
   background: linear-gradient(135deg, #d40101, #ffb74c, #0059ff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 6rem;
 }

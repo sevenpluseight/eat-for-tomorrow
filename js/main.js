@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  document.querySelectorAll(".emoji[data-quote").forEach(emoji => {
+  document.querySelectorAll(".emoji[data-quote]").forEach(emoji => {
     const rect = emoji.getBoundingClientRect();
     
     if (rect.top > 60) {
