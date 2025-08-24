@@ -9,6 +9,7 @@ html {
   scroll-behavior: smooth;
 }
 
+/* index.html */
 /* Theme toggle button */
 body.dark {
   background-color: #1a1a1a;
@@ -143,4 +144,111 @@ body.dark .nav-link.active {
 body.dark .theme-toggle-btn {
   background-color: #444;
   border-color: #666;
+}
+
+/* game.html */
+body.dark #game-container {
+  background: #2c2c2c;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode #game-container {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode #stats-container {
+    background: rgba(50, 50, 50, 0.85);
+    color: #f0f0f0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .choice-btn {
+    background-color: #333;
+    color: #f0f0f0;
+    border: 1px solid #555;
+}
+
+body.dark-mode .choice-btn:hover {
+    background-color: #444;
+}
+
+body.dark-mode .floating-change {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+body.dark-mode .final-stats-container {
+    background-color: rgba(255,255,255,0.1);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* body.dark-mode .play-again-btn {
+    background-color: lightblue;
+    color: #000;
+}
+
+body.dark-mode .play-again-btn:hover {
+    background-color: deepskyblue;
+} */
+
+body.dark-mode #path {
+    background: #444;
+}
+
+body.dark-mode #character {
+    color: #ffeb3b;
+}
+
+body.dark-mode .marker {
+    color: #ccc;
+}
+
+body.dark-mode #food {
+    color: #ff9800;
+}
+
+body.dark-mode #path {
+  background: #444;
+}
+
+body.dark-mode #character {
+  color: #ffeb3b;
+}
+
+body.dark-mode .marker {
+  color: #ccc;
+}
+
+body.dark-mode #food {
+  color: #ff9800;
+}
+
+body.dark-mode .mode-icon:first-child {
+    opacity: 0.4;
+}
+
+body.dark-mode .mode-icon:last-child {
+    opacity: 1;
+}
+
+.dark-mode-toggle {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.mode-icon {
+    pointer-events: none;
+    transition: opacity 0.3s;
 }
