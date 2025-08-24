@@ -8,6 +8,9 @@ let playerStats = {
 const gameContainer = document.getElementById('game-container');
 const statsContainer = document.getElementById('stats-container');  
 
+setupMarkers();
+moveCharacter(0); // Start at Day 1 position
+
 function updateStats() {
     let healthEmoji = playerStats.health <= -2 ? "🤒" : playerStats.health >=2 ? "😊" : "😐";
     let walletEmoji = playerStats.wallet <= 0 ? "🪙" : playerStats.wallet >=5 ? "💎" : "💰";
@@ -27,7 +30,7 @@ function showDay() {
     }).join("");
 
     gameContainer.innerHTML = `
-        <div class="fade-in" id="day-content">
+        <div class="screen-container fade-in" id="day-content">
             <h2>Day ${day.day} - ${day.title}</h2>
             <p>${day.question}</p>
             <div id="choices-container">
@@ -46,13 +49,32 @@ function showDay() {
         });
     });
 } 
+
+let isAnswering = false;
+
 function handleChoice(choiceIndex) {
+    if (isAnswering) return; // Prevent multiple clicks
+    isAnswering = true;
+
     const choice = days[currentDay].choices[choiceIndex];
 
     const healthChange = typeof choice.health === "function" ? choice.health() : choice.health;
     const walletChange = typeof choice.wallet === "function" ? choice.wallet() : choice.wallet;
     const envChange = typeof choice.env === "function" ? choice.env() : choice.env;
 
+    const foodEl = document.getElementById("food");
+    const character = document.getElementById("character");
+
+    // Show the food above the character
+    foodEl.textContent = choice.emoji;
+    foodEl.style.left = character.style.left || "0%";
+    foodEl.classList.add("show");
+
+    // Wait → hide food (simulate eating) → then move
+    setTimeout(() => {
+        foodEl.classList.remove("show");
+    }, 800); // match CSS transition duration
+    
     // Apply changes
     playerStats.health += healthChange;
     playerStats.wallet += walletChange;
@@ -60,6 +82,7 @@ function handleChoice(choiceIndex) {
 
     updateStats();
     currentDay++;
+    moveCharacter(currentDay);
 
     // Show floating and only proceed when animation is done
     showFloatingChange(healthChange, walletChange, envChange, choiceIndex, () => {
@@ -68,6 +91,8 @@ function handleChoice(choiceIndex) {
         } else {
             showEnding();
         }
+
+        isAnswering = false; // Reset for next question
     });
 }
 
@@ -106,6 +131,11 @@ function showFloatingChange(healthChange, walletChange, envChange, choiceIndex, 
 
 function showEnding() {
     statsContainer.style.display = "none";
+
+    const character = document.getElementById("character");
+    if (character) {
+        character.textContent = "🥳"; 
+    }
 
     let endingTitle = " ";
     let endingTagline = " ";
@@ -163,8 +193,16 @@ function restartGame() {
         wallet: 0,
         env: 0
     };
+    
+    const character = document.getElementById("character");
+    if (character) {
+        character.textContent = "🏃‍♀️‍➡️"; 
+    }
+
     statsContainer.style.display = "block"; 
     updateStats();
+    setupMarkers();
+    moveCharacter(0);
     showDay();
 }
 
@@ -174,6 +212,51 @@ const darkSwitch = document.getElementById('dark-mode-switch');
 darkSwitch.addEventListener('change', () => {
     document.body.classList.toggle('dark-mode', darkSwitch.checked);
 });
+
+function setupMarkers() {
+    const totalDays = 14;
+    const markers = document.getElementById("markers");
+
+    markers.innerHTML = ""; // clear first
+
+    for (let day = 1; day <= totalDays; day++) {
+        const marker = document.createElement("div");
+        marker.classList.add("marker");
+
+        // Distribute evenly with %
+        const percent = ((day - 1) / (totalDays - 1)) * 100;
+        marker.style.left = percent + "%";
+
+        // Show numbers only at milestones
+        if (day === 1 || day === 7 || day === 14) {
+            marker.textContent = day;
+        } else {
+            marker.textContent = "•"; // small dot
+        }
+
+        markers.appendChild(marker);
+    }
+}
+
+
+function moveCharacter(dayIndex) {
+    const totalDays = 14;
+    const path = document.getElementById("path");
+    const char = document.getElementById("character");
+
+    const pathWidth = path.clientWidth;   // inside path
+    const charWidth = char.clientWidth;
+
+    // Space available for movement
+    const step = (pathWidth - charWidth) / (totalDays - 1);
+
+    // Clamp to valid range
+    if (dayIndex >= totalDays) dayIndex = totalDays - 1;
+    if (dayIndex < 0) dayIndex = 0;
+
+    // Apply relative to path container
+    char.style.left = (dayIndex * step) + "px";
+}
 
 updateStats();
 showDay();
