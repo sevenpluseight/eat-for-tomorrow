@@ -2,34 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Eat for Tomorrow</title>
+  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- CSS -->
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/game.css">
+  <!-- Favicon-->
+  <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="assets/favicon/favicon.png" sizes="32x32">
+
+  <title>Start Your Journey at EFT</title>
 </head>
 <body>
-  <div class="dark-mode-toggle">
-    <span class="mode-icon">🌞</span>
-    <label class="switch">
-      <input type="checkbox" id="dark-mode-switch">
-      <span class="slider round"></span>
-    </label>
-    <span class="mode-icon">🌙</span>
-  </div>
+  <a href="index.html" class="go-back-btn" id="go-back-btn">
+    <i class="fa-solid fa-arrow-left"></i> Back
+  </a>
 
   <div id="game-container"></div>
   <div id="stats-container"></div>
 
   <div id="journey-container">
     <div id="path"></div>
-    <div id="character">🏃‍♀️‍➡️</div>
+    <div id="character"><i class="fa-solid fa-person-running"></i></div>
     <div id="food"></div>  
     <div id="markers"></div>
   </div>
 
+  <!-- JavaScript -->
   <script src="js/data.js"></script>
   <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
