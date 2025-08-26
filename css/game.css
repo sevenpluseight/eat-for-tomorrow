@@ -1,14 +1,42 @@
 /* Game Container */
-#game-container {
+/* #game-container {
     position: relative;
     width: 90%;
     max-width: 900px;
-    margin: 8vh auto 2vh auto; /* vertical spacing */
+    margin: 8vh auto 2vh auto;
     padding: 1rem;
     box-sizing: border-box;
+} */
+
+#game-container {
+  position: relative;
+  width: 90%;
+  max-width: 900px;
+  margin: 8vh auto 2vh auto;
+  padding: 2rem;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background: #f9f9f9;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
 }
 
-/* Stats Container */
+#game-container:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15), 0 0 12px rgba(52,153,255,0.1);
+}
+
+#game-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+#game-container h2, 
+#game-container p {
+  margin: 0.5rem 0;
+  color: inherit;
+}
+
+/* Stats Container CSS */
 #stats-container {
     position: fixed;
     top: 1rem;
@@ -20,12 +48,11 @@
     font-size: clamp(0.8rem, 2vw, 1.2rem);
     z-index: 100;
     max-width: 40%;
-    white-space: nowrap ; /* prevent wrapping */
-    overflow-x: auto; /* allow horizontal scroll if needed */
+    white-space: nowrap;
+    overflow-x: auto;
     max-width: 90vw;
 }
 
-/* Titles and Paragraphs */
 h2 {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     margin-bottom: 1rem;
@@ -38,8 +65,8 @@ p {
     text-align: center;
 }
 
-/* Choice Buttons */
-#choices-container {
+/* Choice Buttons CSS */
+/* #choices-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -48,7 +75,7 @@ p {
 }
 
 .choice-btn {
-    flex: 1 1 40%; /* grow/shrink, base 40% width */
+    flex: 1 1 40%;
     max-width: 300px;
     padding: 0.6rem 1rem;
     font-size: clamp(0.9rem, 1.5vw, 1.2rem);
@@ -62,6 +89,80 @@ p {
 .choice-btn:hover {
     transform: scale(1.05);
     background-color: #e0f7fa;
+} */
+
+#choices-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1.5rem;
+    justify-items: center;
+    align-items: center;
+    margin-top: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.choice-btn {
+    width: 105%;
+    height: 85px;
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    cursor: pointer;
+    border-radius: 30px;
+    border: none;
+    background: #ffffff;
+    color: #333;
+    font-weight: 600;
+    box-shadow: 
+        0 4px 6px rgba(0,0,0,0.1),
+        inset 0 -3px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.choice-btn::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, #ff3c3c, #ffb74c, #3499ff, #ff3c3c);
+    background-size: 400% 400%;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.choice-btn:hover::before {
+    opacity: 0.3;
+    animation: moveGradient 5s linear infinite;
+}
+
+.choice-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.choice-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15),
+                inset 0 -3px 8px rgba(0,0,0,0.05);
+}
+
+.choice-btn:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12),
+                inset 0 -2px 4px rgba(0,0,0,0.05);
+}
+
+@keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Shared layout for Question + Ending screens */
@@ -73,15 +174,14 @@ p {
 
     width: 90%;
     max-width: 900px;
-    margin: 8vh auto 2vh auto; /* same as game-container */
+    margin: 8vh auto 2vh auto;
     padding: 1rem;
     box-sizing: border-box;
 
-    gap: 1rem; /* consistent vertical spacing */
+    gap: 1rem;
     text-align: center;
 }
 
-/* Fade animation */
 .fade-out {
     opacity: 0;
     transition: opacity 0.2s ease-out;
@@ -97,7 +197,7 @@ p {
 }
 
 /* Floating Change Animation */
-.floating-change {
+/* .floating-change {
     background: rgba(0,0,0,0.7);
     color: white;
     padding: 0.3rem 0.6rem;
@@ -105,7 +205,44 @@ p {
     font-size: clamp(0.8rem, 1.5vw, 1.2rem);
     font-weight: bold;
     transition: all 2.0s ease-out;
-    pointer-events: none; /* avoid interfering with clicks */
+    pointer-events: none;
+} */
+
+.floating-change {
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+    font-weight: bold;
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 0;
+    animation: floatUpSmooth 2.5s ease-in-out forwards;
+}
+
+@keyframes floatUpSmooth {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(calc(-50% + 5px)) translateY(-20px) scale(1.03);
+        opacity: 1;
+    }
+    80% {
+        transform: translateX(calc(-50% - 5px)) translateY(-35px) scale(1.02);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateX(-50%) translateY(-50px) scale(1);
+        opacity: 0;
+    }
 }
 
 /* Media Queries for small screens */
@@ -126,7 +263,7 @@ p {
 
     #game-container {
         width: 95%;
-        margin: 5vh auto 2vh auto; /* adjust vertical spacing */
+        margin: 5vh auto 2vh auto;
     }
 }
 
@@ -136,8 +273,8 @@ p {
 }
 
 .final-stats-container {
-    display: inline-block;          /* shrink to content width */
-    background-color:white;      /* light card color */
+    display: inline-block;
+    background-color:white;
     color: #333;
     padding: 1rem 1.5rem;
     border-radius: 12px;
@@ -150,10 +287,10 @@ p {
 .play-again-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
 }
 
-.play-again-btn {
+/* .play-again-btn {
     padding: 0.6rem 1.6rem;
     font-size: clamp(1rem, 1.2vw + 0.5rem, 1.2rem);
     border-radius: 10px;
@@ -161,24 +298,20 @@ p {
     background-color: green; 
     color: white;
     cursor: pointer;
-    font-family: 'Comic Sans MS', cursive, sans-serif;  
     font-weight: bold;
     transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
-/* Hover effect */
 .play-again-btn:hover {
     transform: scale(1.1);
-    background-color: lightseagreen;  /* darker shade */
+    background-color: lightseagreen;
 }
 
-/* Click effect */
 .play-again-btn:active {
     transform: scale(0.95);
 }
 
-/* Pulse animation to attract attention */
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -186,43 +319,76 @@ p {
 
 .play-again-btn {
     animation: pulse 2s infinite;
+} */
+
+.play-again-btn {
+  position: relative;
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #f75f5f, #ffb43c, #3499ff);
+  background-size: 200% 200%;
+  transition: all 0.4s ease, background-position 0.8s ease, transform 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.play-again-btn:hover {
+  background-position: right center;
+  filter: brightness(1.1);
+  box-shadow: 
+      0 0 20px rgba(0, 89, 255, 0.6),
+      0 0 40px rgba(255, 183, 76, 0.4),
+      0 0 60px rgba(212, 1, 1, 0.3);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.play-again-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
 /* Dark Mode Toggle Switch */
-.dark-mode-toggle {
+/* .dark-mode-toggle {
     position: fixed;
     top: 1rem;
     left: 1rem;
     z-index: 200;
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* space between icons and toggle */
-    font-size: 1.2rem; /* icon size */
+    gap: 0.5rem;
+    font-size: 1.2rem;
 }
 
 .mode-icon {
-    pointer-events: none; /* icons not clickable */
+    pointer-events: none;
     transition: opacity 0.3s;
-}
+} */
 
 /* Highlight current mode */
-body.dark-mode .mode-icon:first-child { /* Sun icon hidden in dark */
+/* body.dark-mode .mode-icon:first-child {
     opacity: 0.4;
 }
 
-body.dark-mode .mode-icon:last-child { /* Moon icon highlighted */
+body.dark-mode .mode-icon:last-child {
+    opacity: 1;
+} */
+
+.mode-icon:first-child {
     opacity: 1;
 }
 
-.mode-icon:first-child { /* Sun icon visible in light mode */
-    opacity: 1;
-}
-
-.mode-icon:last-child { /* Moon icon dim in light mode */
+.mode-icon:last-child {
     opacity: 0.4;
 }
 
-/* ----- Toggle slider ----- */
+/* Toggle slider */
 .switch {
   position: relative;
   display: inline-block;
@@ -268,8 +434,8 @@ input:checked + .slider:before {
   transform: translateX(24px);
 }
 
-/* ----- Dark Mode Styles ----- */
-body.dark-mode {
+/* Dark Mode */
+/* body.dark-mode {
     background-color: #121212;
     color: #e0e0e0;
 }
@@ -299,24 +465,23 @@ body.dark-mode .floating-change {
     color: #fff;
 }
 
-/* Final Stats Container Dark mode adjustments */
 body.dark-mode .final-stats-container {
-    background-color: rgba(255,255,255,0.1);  /* subtle card in dark mode */
+    background-color: rgba(255,255,255,0.1);
     color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
+} */
 
-/* Play Again Button Dark mode styling */
-body.dark-mode .play-again-btn {
+/* Play Again Button Dark mode CSS */
+/* body.dark-mode .play-again-btn {
     background-color: lightblue;
     color: #000;
 }
 
 body.dark-mode .play-again-btn:hover {
     background-color: deepskyblue;
-}
+} */
 
-#journey-container {
+/* #journey-container {
   margin: 20px auto;
   width: 90%;
   height: 100px;
@@ -335,19 +500,20 @@ body.dark-mode .play-again-btn:hover {
 
 #character {
   position: absolute;
-  top: 25px; /* sits above path */
+  top: 25px;
   left: 0;
   font-size: 28px;
-  transition: left 0.8s ease-in-out; /* smooth walking */
+  transition: left 0.8s ease-in-out;
 }
 
 .marker {
   position: absolute;
-  top: 65px; /* below the line */
-  transform: translateX(-50%); /* center text on point */
+  top: 65px;
+  transform: translateX(-50%);
   font-size: 14px;
   color: #555;
 }
+
 #food {
   position: absolute;
   font-size: 2rem;
@@ -359,21 +525,143 @@ body.dark-mode .play-again-btn:hover {
 #food.show {
   opacity: 1;
   transform: scale(1.2);
+} */
+
+#journey-container {
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 800px;
+  height: 120px;
+  position: relative;
 }
 
-/* ----- Dark Mode Progress Path ----- */
-body.dark-mode #path {
-  background: #444; /* darker path line */
+/* Path line */
+#path {
+  position: relative;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(135deg, #f75f5f, #ffb43c, #3499ff);
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.15), 
+              0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.4s ease;
+}
+
+/* Character */
+#character {
+  position: absolute;
+  top: calc(50% - 20px);
+  left: 0;
+  font-size: 2rem;
+  transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* Markers */
+.marker {
+  position: absolute;
+  top: calc(50% + 20px);
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: #444;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Food Emojis popup */
+#food {
+  position: absolute;
+  font-size: 2rem;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+}
+
+#food.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.2);
+}
+
+/* Dark Mode Progress Path */
+/* body.dark-mode #path {
+  background: #444;
 }
 
 body.dark-mode #character {
-  color: #ffeb3b; /* bright yellow so it stands out */
+  color: #ffeb3b;
 }
 
 body.dark-mode .marker {
-  color: #ccc; /* lighter grey text for visibility */
+  color: #ccc;
 }
 
 body.dark-mode #food {
-  color: #ff9800; /* orange food emoji highlight */
+  color: #ff9800;
+} */
+
+.go-back-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #333;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+  z-index: 1000;
+}
+
+.go-back-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateX(-3px);
+}
+
+body.dark-mode .go-back-btn {
+  background: rgba(40, 40, 40, 0.9);
+  color: #eee;
+}
+
+body.dark-mode .go-back-btn:hover {
+  background: rgba(60, 60, 60, 1);
+}
+
+/* Points floating CSS - path bar */
+.floating-change {
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 9999;
+  background: #f0f0f0;
+}
+
+.floating-change .health { color: #e63946; }
+.floating-change .wallet { color: #ffb703; }
+.floating-change .env { color: #2a9d8f; }
+
+/* Confetti CSS */
+.confetti {
+  position: fixed;
+  top: -10px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
 }
