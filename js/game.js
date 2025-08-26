@@ -27,27 +27,31 @@ if (localStorage.getItem("theme") === "dark") {
 //     Health: ${healthEmoji} | Wallet: ${walletEmoji} | Environment: ${envEmoji}`;
 // }
 
+function getStatEmojis(stats) {
+  const healthEmoji = stats.health <= -3
+    ? "🤒"   // sick
+    : stats.health >= 4 
+      ? "❤️"  // healthy
+      : "😐"; // neutral
+
+  const walletEmoji = stats.wallet <= -1 
+    ? "💸"   // no money
+    : stats.wallet >= 5
+      ? "💎"  // rich
+      : "💰"; // average
+
+  const envEmoji = stats.env <= -2
+    ? "🏭"   // polluted
+    : stats.env >= 3 
+      ? "🌳"  // green
+      : "🌿"; // neutral
+
+  return { healthEmoji, walletEmoji, envEmoji };
+}
+
 function updateStats() {
-  let healthIcon = playerStats.health <= -2 
-    ? '<i class="fa-solid fa-hospital stat-danger"></i>' 
-    : playerStats.health >= 2 
-      ? '<i class="fa-solid fa-heart stat-good"></i>' 
-      : '<i class="fa-regular fa-face-meh stat-neutral"></i>';
-
-  let walletIcon = playerStats.wallet <= 0 
-    ? '<i class="fa-solid fa-coins stat-coins"></i>' 
-    : playerStats.wallet >= 5 
-      ? '<i class="fa-solid fa-gem stat-gem"></i>' 
-      : '<i class="fa-solid fa-sack-dollar stat-wealth"></i>';
-
-  let envIcon = playerStats.env <= -2 
-    ? '<i class="fa-solid fa-industry stat-polluted"></i>' 
-    : playerStats.env >= 2 
-      ? '<i class="fa-solid fa-tree stat-green"></i>' 
-      : '<i class="fa-solid fa-leaf stat-leaf"></i>';
-
-  statsContainer.innerHTML = `
-    Health: ${healthIcon} | Wallet: ${walletIcon} | Environment: ${envIcon}`;
+  const { healthEmoji, walletEmoji, envEmoji } = getStatEmojis(playerStats);
+  statsContainer.innerHTML = `Health: ${healthEmoji} | Wallet: ${walletEmoji} | Environment: ${envEmoji}`;
 }
 
 function showDay() {
@@ -126,37 +130,71 @@ function handleChoice(choiceIndex) {
     });
 }
 
+// function showFloatingChange(healthChange, walletChange, envChange, choiceIndex, callback) {
+//     const btn = document.querySelector(`.choice-btn[data-index="${choiceIndex}"]`);
+//     const floating = document.createElement('div');
+//     floating.classList.add('floating-change');
+
+//     let content = " ";
+//     if (healthChange) content += ` Health: ${healthChange > 0 ? '+' : ''}${healthChange} `;
+//     if (walletChange) content += ` Wallet: ${walletChange > 0 ? '+' : ''}${walletChange} `;
+//     if (envChange) content += ` Environment: ${envChange > 0 ? '+' : ''}${envChange} `;
+
+//     floating.innerHTML = content;
+
+//     const rect = btn.getBoundingClientRect();
+//     floating.style.position = 'absolute';
+//     floating.style.left = rect.left + window.scrollX + 'px';
+//     floating.style.top = rect.top + window.scrollY - 30 + 'px';
+//     floating.style.opacity = 1;
+
+//     document.body.appendChild(floating);
+
+//     // Animate floating mark
+//     setTimeout(() => {
+//         floating.style.top = rect.top + window.scrollY - 60 + 'px';
+//         floating.style.opacity = 0;
+//     }, 10);
+
+//     // Remove floating mark after animation ends then call callback
+//     setTimeout(() => {
+//         floating.remove();
+//         if (callback) callback(); // proceed to next question
+//     }, 800);
+// }
+
 function showFloatingChange(healthChange, walletChange, envChange, choiceIndex, callback) {
-    const btn = document.querySelector(`.choice-btn[data-index="${choiceIndex}"]`);
-    const floating = document.createElement('div');
-    floating.classList.add('floating-change');
+  const character = document.getElementById("character");
+  const rect = character.getBoundingClientRect();
 
-    let content = " ";
-    if (healthChange) content += ` Health: ${healthChange > 0 ? '+' : ''}${healthChange} `;
-    if (walletChange) content += ` Wallet: ${walletChange > 0 ? '+' : ''}${walletChange} `;
-    if (envChange) content += ` Environment: ${envChange > 0 ? '+' : ''}${envChange} `;
+  const floating = document.createElement("div");
+  floating.classList.add("floating-change");
 
-    floating.innerHTML = content;
+  let content = "";
+  if (healthChange) content += `<span class="health">${healthChange > 0 ? "❤️+" : "❤️"}${healthChange}</span> `;
+  if (walletChange) content += `<span class="wallet">${walletChange > 0 ? "💰+" : "💰"}${walletChange}</span> `;
+  if (envChange) content += `<span class="env">${envChange > 0 ? "🌱+" : "🌱"}${envChange}</span> `;
 
-    const rect = btn.getBoundingClientRect();
-    floating.style.position = 'absolute';
-    floating.style.left = rect.left + window.scrollX + 'px';
-    floating.style.top = rect.top + window.scrollY - 30 + 'px';
-    floating.style.opacity = 1;
+  floating.innerHTML = content;
 
-    document.body.appendChild(floating);
+  floating.style.position = "absolute";
+  floating.style.left = rect.left + window.scrollX + rect.width / 2 + "px";
+  floating.style.top = rect.top + window.scrollY - 40 + "px";
+  floating.style.opacity = 1;
+  floating.style.pointerEvents = "none";
+  floating.style.transition = "all 0.8s ease-out";
 
-    // Animate floating mark
-    setTimeout(() => {
-        floating.style.top = rect.top + window.scrollY - 60 + 'px';
-        floating.style.opacity = 0;
-    }, 10);
+  document.body.appendChild(floating);
 
-    // Remove floating mark after animation ends then call callback
-    setTimeout(() => {
-        floating.remove();
-        if (callback) callback(); // proceed to next question
-    }, 800);
+  requestAnimationFrame(() => {
+    floating.style.transform = "translateY(-30px)";
+    floating.style.opacity = "0";
+  });
+
+  setTimeout(() => {
+    floating.remove();
+    if (callback) callback();
+  }, 800);
 }
 
 function showEnding() {
@@ -206,14 +244,21 @@ function showEnding() {
     // Trigger fade-in
     const endingContent = document.getElementById('ending-content');
     setTimeout(() => endingContent.classList.add('show'), 10);
+
+    launchConfetti();
 }
 
-function getStatsEmojis() {
-    let healthEmoji = playerStats.health <= -2 ? "🤒" : playerStats.health >= 2 ? "😊" : "😐";
-    let walletEmoji = playerStats.wallet <= 0 ? "🪙" : playerStats.wallet >= 5 ? "💎" : "💰";
-    let envEmoji = playerStats.env <= -2 ? "🏭" : playerStats.env >= 2 ? "🌳" : "🌿";
+// function getStatsEmojis() {
+//     let healthEmoji = playerStats.health <= -2 ? "🤒" : playerStats.health >= 2 ? "😊" : "😐";
+//     let walletEmoji = playerStats.wallet <= 0 ? "🪙" : playerStats.wallet >= 5 ? "💎" : "💰";
+//     let envEmoji = playerStats.env <= -2 ? "🏭" : playerStats.env >= 2 ? "🌳" : "🌿";
 
-    return `Health: ${healthEmoji} | Wallet: ${walletEmoji} | Environment: ${envEmoji}`;
+//     return `Health: ${healthEmoji} | Wallet: ${walletEmoji} | Environment: ${envEmoji}`;
+// }
+
+function getStatsEmojis() {
+  const { healthEmoji, walletEmoji, envEmoji } = getStatEmojis(playerStats);
+  return `Health: ${healthEmoji} | Wallet: ${walletEmoji} | Environment: ${envEmoji}`;
 }
 
 function restartGame() {
@@ -273,7 +318,7 @@ function moveCharacter(dayIndex) {
     const path = document.getElementById("path");
     const char = document.getElementById("character");
 
-    const pathWidth = path.clientWidth;   // inside path
+    const pathWidth = path.clientWidth; // inside path
     const charWidth = char.clientWidth;
 
     // Space available for movement
@@ -289,3 +334,34 @@ function moveCharacter(dayIndex) {
 
 updateStats();
 showDay();
+
+function launchConfetti() {
+  const duration = 3000; // 3 seconds
+  const end = Date.now() + duration;
+
+  (function frame() {
+    for (let i = 0; i < 3; i++) {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+
+      confetti.style.left = Math.random() * 100 + "vw";
+
+      const size = Math.random() * 6 + 4;
+      confetti.style.width = size + "px";
+      confetti.style.height = size + "px";
+
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+
+      confetti.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      confetti.style.opacity = Math.random() * 0.6 + 0.3;
+
+      document.body.appendChild(confetti);
+
+      setTimeout(() => confetti.remove(), 6000);
+    }
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
+}
