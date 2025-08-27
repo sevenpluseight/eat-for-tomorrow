@@ -7,12 +7,20 @@
     padding: 1rem;
     box-sizing: border-box;
 } */
+ 
+/* Prevent text selection across the entire project */
+* {
+    user-select: none;         /* Standard */
+    -webkit-user-select: none; /* Safari/Chrome */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE/Edge */
+}
 
 #game-container {
   position: relative;
   width: 90%;
   max-width: 900px;
-  margin: 8vh auto 2vh auto;
+  margin: 8vh auto 1vh auto;
   padding: 2rem;
   box-sizing: border-box;
   border-radius: 20px;
@@ -32,7 +40,7 @@
 
 #game-container h2, 
 #game-container p {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
   color: inherit;
 }
 
@@ -247,24 +255,49 @@ p {
 
 /* Media Queries for small screens */
 @media (max-width: 600px) {
-    #choices-container {
-        flex-direction: column;
-        align-items: center;
-    }
+  body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* prevent page scrolling */
+  }
 
-    .choice-btn {
-        width: 80%;
-    }
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* full viewport height */
+  }
 
-    #stats-container {
-        font-size: 0.9rem;
-        padding: 0.3rem 0.6rem;
-    }
+  #stats-container {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    flex-shrink: 0; /* don’t shrink away */
+  }
 
-    #game-container {
-        width: 95%;
-        margin: 5vh auto 2vh auto;
-    }
+  #game-container {
+    flex: 1; /* take remaining space */
+    width: 100%;
+    margin: 0; /* remove vh margins */
+    overflow-y: auto; /* allow inner scroll if too much content */
+  }
+
+  #choices-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  .choice-btn {
+    width: 100%;
+    height: 55px; /* shorter so more fits */
+    font-size: 0.9rem;
+  }
+
+  #journey-container {
+    flex-shrink: 0; /* always visible */
+  }
 }
 
 .ending-container {
@@ -531,7 +564,7 @@ body.dark-mode .play-again-btn:hover {
   margin: 2rem auto;
   width: 90%;
   max-width: 800px;
-  height: 120px;
+  height: 80px;
   position: relative;
 }
 
@@ -553,6 +586,7 @@ body.dark-mode .play-again-btn:hover {
 /* Character */
 #character {
   position: absolute;
+  z-index: 2;
   top: calc(50% - 20px);
   left: 0;
   font-size: 2rem;
@@ -574,8 +608,9 @@ body.dark-mode .play-again-btn:hover {
 /* Food Emojis popup */
 #food {
   position: absolute;
+  z-index: 1;
   font-size: 2rem;
-  bottom: 50px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%) scale(0.8);
   opacity: 0;
@@ -665,3 +700,93 @@ body.dark-mode .go-back-btn:hover {
     opacity: 0;
   }
 }
+
+.game-hint {
+  font-size: 0.85rem;   /* smaller */
+  font-style: italic;   /* italic */
+  color: #666;          /* softer */
+  margin-top: -0.3rem;  /* closer to instructions */
+  margin-bottom: 1rem;
+}
+
+/* 🎮 Memory Match Game Styles (smaller layout) */
+.memory-card {
+    width: 55px;   /* smaller width */
+    height: 55px;  /* smaller height */
+    perspective: 500px;
+    cursor: pointer;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;   /* smaller icons */
+    border-radius: 6px;
+    backface-visibility: hidden;
+    background: #f0f0f0;
+}
+
+.card-back {
+    background: #fff;
+    transform: rotateY(180deg);
+}
+
+.plate-container {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: #f9f9f9;
+    border: 4px solid #4caf50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    position: relative;
+}
+
+.plate {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: #fffbe6;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.food-item {
+    font-size: 1.5rem;
+    cursor: grab;
+    margin: 0.3rem;
+    display: inline-block;
+}
+
+.dropped-food {
+    font-size: 1.5rem;
+}
+
+.game-hint {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
