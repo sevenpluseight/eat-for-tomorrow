@@ -38,18 +38,47 @@ function startEcoPlateGame(callback) {
     plateContainer.appendChild(plate);
 
     // Foods
-    const foods = [
-        { name: "🥦", type: "low" },
-        { name: "🥕", type: "low" },
-        { name: "🍎", type: "low" },
-        { name: "🍌", type: "low" },
-        { name: "🥑", type: "low" },
-        { name: "🍔", type: "high" },
-        { name: "🍕", type: "high" },
-        { name: "🍟", type: "high" },
-        { name: "🍫", type: "high" }
+    // const foods = [
+    //     { name: "🥦", type: "low" },
+    //     { name: "🥕", type: "low" },
+    //     { name: "🍎", type: "low" },
+    //     { name: "🍌", type: "low" },
+    //     { name: "🥑", type: "low" },
+    //     { name: "🍔", type: "high" },
+    //     { name: "🍕", type: "high" },
+    //     { name: "🍟", type: "high" },
+    //     { name: "🍫", type: "high" }
+    // ];
+
+    const allFoods = [
+      { name: "🥦", type: "low" },
+      { name: "🥕", type: "low" },
+      { name: "🍎", type: "low" },
+      { name: "🍌", type: "low" },
+      { name: "🥑", type: "low" },
+      { name: "🍇", type: "low" },
+      { name: "🍓", type: "low" },
+
+      { name: "🍔", type: "high" },
+      { name: "🍕", type: "high" },
+      { name: "🍟", type: "high" },
+      { name: "🍫", type: "high" },
+      { name: "🥤", type: "high" },
     ];
 
+    // Guarantee at least 4 veggies in the selection
+    const veggies = allFoods.filter(f => f.type === "low");
+    const junk = allFoods.filter(f => f.type === "high");
+
+    // Pick 4 random veggies
+    const chosenVeggies = veggies.sort(() => Math.random() - 0.5).slice(0, 4);
+
+    // Pick 4 random junk foods
+    const chosenJunk = junk.sort(() => Math.random() - 0.5).slice(0, 4);
+
+    // Merge and shuffle again
+    let foods = [...chosenVeggies, ...chosenJunk].sort(() => Math.random() - 0.5);
+    
     let lowImpactCount = 0;
     let highImpactCount = 0;
     let finished = false;
