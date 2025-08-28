@@ -125,7 +125,11 @@ function startDayMiniGame(dayIndex, callback) {
         startEcoPlateGame(() => {
             callback();
         });
-    }else {
+    } else if (dayIndex ===12) {
+        startSupermarketDash(() => {
+            callback();
+        });
+    } else {
         callback();
     }
 }
@@ -253,9 +257,7 @@ function moveCharacter(dayIndex) {
     char.style.left = (dayIndex * step) + "px";
 }
 
-// =======================
-// CONFETTI
-// =======================
+// confetti
 function launchConfetti() {
     const duration = 3000;
     const end = Date.now() + duration;
