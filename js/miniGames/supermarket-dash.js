@@ -13,8 +13,10 @@ function startSupermarketDash(callback) {
     const rules = document.createElement("p");
     rules.classList.add("game-hint");
     rules.innerHTML = `
-        Catch <span style="color:green">healthy foods</span> & <span style="color:gold">coins</span>!<br>
-        Avoid <span style="color:red">junk foods</span>! 15 seconds only!
+        Catch <span style="color:green"><b>healthy foods</b></span> & <span style="color:gold"><b>coins</b></span>!<br>
+        Avoid <span style="color:red"><b>junk foods</b></span>!<br>
+        ⬅️ ➡️ Use the <b>arrow keys</b> to move your trolley!<br>
+        You have 15 seconds!
     `;
     container.appendChild(rules);
 
@@ -47,7 +49,7 @@ function startSupermarketDash(callback) {
 
     let basketX = playArea.clientWidth / 2 - 25;
     basket.style.left = basketX + "px";
-    const basketSpeed = 15;
+    const basketSpeed = 70;
 
     const items = [
         { emoji: "🥦", type: "low" },
@@ -102,29 +104,58 @@ function startSupermarketDash(callback) {
         itemEl.style.textAlign = "center";
         playArea.appendChild(itemEl);
 
-        let fallSpeed = 2 + Math.random() * 3;
+        let fallSpeed = 1 + Math.random() * 0.2; // Originally was 2 + Math.random() * 3
 
         function fall() {
             if (finished) { itemEl.remove(); return; }
             let y = parseFloat(itemEl.style.top);
             let x = parseFloat(itemEl.style.left);
 
+            // if (
+            //     y + 40 >= playArea.clientHeight - 50 &&
+            //     x + 40 > basketX &&
+            //     x < basketX + 50
+            // ) {
+            //     if (itemData.type === "low") { 
+            //         playerStats.health += 1; 
+            //         playerStats.env += 1; 
+            //     }
+            //     if (itemData.type === "high") { 
+            //         playerStats.health -= 1; 
+            //         playerStats.env -= 1; 
+            //     }
+            //     if (itemData.type === "coin") { 
+            //         playerStats.wallet += 1; 
+            //     }
+
             if (
                 y + 40 >= playArea.clientHeight - 50 &&
                 x + 40 > basketX &&
                 x < basketX + 50
             ) {
+                // Healthy food
                 if (itemData.type === "low") { 
                     playerStats.health += 1; 
                     playerStats.env += 1; 
+                    playArea.classList.add("healthy-catch");
+                    setTimeout(() => playArea.classList.remove("healthy-catch"), 300);
                 }
+
+                // Junk food
                 if (itemData.type === "high") { 
                     playerStats.health -= 1; 
                     playerStats.env -= 1; 
+                    playArea.classList.add("junk-catch");
+                    setTimeout(() => playArea.classList.remove("junk-catch"), 300);
                 }
+
+                // Coin
                 if (itemData.type === "coin") { 
                     playerStats.wallet += 1; 
+                    playArea.classList.add("coin-catch");
+                    setTimeout(() => playArea.classList.remove("coin-catch"), 300);
                 }
+
                 updateDashScore();
                 itemEl.remove();
                 return;
