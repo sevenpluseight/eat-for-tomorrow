@@ -10,7 +10,6 @@ function startSupermarketDash(callback) {
     title.textContent = "Supermarket Dash 🛒💨";
     container.appendChild(title);
 
-    // Short rules for kids
     const rules = document.createElement("p");
     rules.classList.add("game-hint");
     rules.innerHTML = `
@@ -24,7 +23,6 @@ function startSupermarketDash(callback) {
     updateDashScore();
     container.appendChild(scoreDisplay);
 
-    // Play area
     const playArea = document.createElement("div");
     playArea.classList.add("dash-play-area");
     playArea.style.position = "relative";
@@ -35,7 +33,6 @@ function startSupermarketDash(callback) {
     playArea.style.backgroundColor = "#f0f0f0";
     container.appendChild(playArea);
 
-    // Basket as emoji
     const basket = document.createElement("div");
     basket.classList.add("dash-basket");
     basket.style.position = "absolute";
@@ -45,7 +42,7 @@ function startSupermarketDash(callback) {
     basket.style.fontSize = "36px";
     basket.style.textAlign = "center";
     basket.style.lineHeight = "50px";
-    basket.textContent = "🛒"; // shopping cart emoji
+    basket.textContent = "🛒";
     playArea.appendChild(basket);
 
     let basketX = playArea.clientWidth / 2 - 25;
@@ -67,19 +64,14 @@ function startSupermarketDash(callback) {
     let timeLeft = 15;
     let finished = false;
 
-    // Basket movement
     function moveBasket(e) {
         if (finished) return;
-        if (e.key === "ArrowLeft") {
-            basketX = Math.max(0, basketX - basketSpeed);
-        } else if (e.key === "ArrowRight") {
-            basketX = Math.min(playArea.clientWidth - 50, basketX + basketSpeed);
-        }
+        if (e.key === "ArrowLeft") basketX = Math.max(0, basketX - basketSpeed);
+        if (e.key === "ArrowRight") basketX = Math.min(playArea.clientWidth - 50, basketX + basketSpeed);
         basket.style.left = basketX + "px";
     }
     document.addEventListener("keydown", moveBasket);
 
-    // Timer
     const timerDisplay = document.createElement("p");
     timerDisplay.classList.add("game-hint");
     timerDisplay.textContent = `Time left: ${timeLeft}s`;
@@ -113,10 +105,7 @@ function startSupermarketDash(callback) {
         let fallSpeed = 2 + Math.random() * 3;
 
         function fall() {
-            if (finished) {
-                itemEl.remove();
-                return;
-            }
+            if (finished) { itemEl.remove(); return; }
             let y = parseFloat(itemEl.style.top);
             let x = parseFloat(itemEl.style.left);
 
@@ -125,75 +114,35 @@ function startSupermarketDash(callback) {
                 x + 40 > basketX &&
                 x < basketX + 50
             ) {
-                // Caught item
-                if (itemData.type === "low") {
-                    playerStats.health += 1;
-                    playerStats.env += 1;
-                    launchConfetti(itemEl, "green");
-                    bounceBasket();
-                } else if (itemData.type === "high") {
-                    playerStats.health -= 1;
-                    playerStats.env -= 1;
-                    bounceBasket();
-                } else if (itemData.type === "coin") {
-                    playerStats.wallet += 1;
-                    launchConfetti(itemEl, "gold");
-                    bounceBasket();
+                if (itemData.type === "low") { 
+                    playerStats.health += 1; 
+                    playerStats.env += 1; 
+                }
+                if (itemData.type === "high") { 
+                    playerStats.health -= 1; 
+                    playerStats.env -= 1; 
+                }
+                if (itemData.type === "coin") { 
+                    playerStats.wallet += 1; 
                 }
                 updateDashScore();
                 itemEl.remove();
                 return;
             }
 
-            if (y + 40 > playArea.clientHeight) {
-                itemEl.remove();
-                return;
-            }
-
+            if (y + 40 > playArea.clientHeight) { itemEl.remove(); return; }
             itemEl.style.top = y + fallSpeed + "px";
             requestAnimationFrame(fall);
         }
         fall();
-
         setTimeout(spawnItem, 300 + Math.random() * 500);
     }
 
-    function bounceBasket() {
-        basket.animate([
-            { transform: "translateY(0px)" },
-            { transform: "translateY(-10px)" },
-            { transform: "translateY(0px)" }
-        ], { duration: 200 });
-    }
-
     function updateDashScore() {
-        // Show stats as emojis only
         const healthEmoji = playerStats.health <= -3 ? "🤒" : playerStats.health >= 4 ? "❤️" : "😐";
         const walletEmoji = playerStats.wallet <= -1 ? "💸" : playerStats.wallet >= 5 ? "💎" : "💰";
         const envEmoji = playerStats.env <= -2 ? "🏭" : playerStats.env >= 3 ? "🌳" : "🌿";
         scoreDisplay.textContent = `Health: ${healthEmoji} | Wallet: ${walletEmoji} | Env: ${envEmoji}`;
-    }
-
-    function launchConfetti(element, color = "green") {
-        const rect = element.getBoundingClientRect();
-        for (let i = 0; i < 10; i++) {
-            const particle = document.createElement("div");
-            particle.classList.add("particle");
-            particle.style.position = "absolute";
-            particle.style.left = rect.left + rect.width / 2 + "px";
-            particle.style.top = rect.top + rect.height / 2 + "px";
-            particle.style.width = particle.style.height = "6px";
-            particle.style.backgroundColor = color;
-            particle.style.borderRadius = "50%";
-            document.body.appendChild(particle);
-            const dx = (Math.random() - 0.5) * 50;
-            const dy = (Math.random() - 0.5) * 50;
-            particle.animate(
-                [{ transform: "translate(0,0)", opacity: 1 }, { transform: `translate(${dx}px, ${dy}px)`, opacity: 0 }],
-                { duration: 800 }
-            );
-            setTimeout(() => particle.remove(), 800);
-        }
     }
 
     function endGame() {
