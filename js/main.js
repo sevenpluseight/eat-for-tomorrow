@@ -80,4 +80,18 @@ document.addEventListener("DOMContentLoaded", () => {
       emoji.dataset.position = "bottom";
     }
   });
+
+  // Landing page -> game page
+  const startButtons = document.querySelectorAll(".hero-btn, .start-game-btn");
+
+  startButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      document.body.classList.add("page-transition");
+
+      setTimeout(() => {
+        window.location.href = btn.getAttribute("href");
+      }, 600);
+    });
+  });
 });
