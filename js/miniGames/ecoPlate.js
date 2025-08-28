@@ -6,25 +6,29 @@ function startEcoPlateGame(callback) {
     container.classList.add("screen-container", "fade-in");
     container.id = "eco-plate-game";
 
+    // Title
     const title = document.createElement("h2");
-    title.textContent = "Eco Plate 🌱♻️";
+    title.textContent = "Eco Plate 🌱";
     container.appendChild(title);
 
-    // RULES
+    // Short Rule
     const rules = document.createElement("p");
     rules.classList.add("game-hint");
-    rules.innerHTML = `
-        <strong>Rules:</strong> Place <span style="color:green">low-impact foods</span> onto the plate!<br>
-        Avoid <span style="color:red">high-impact foods</span>.<br>
-        Place at least 4 low-impact foods to win!
-    `;
+    rules.textContent = "Place 4 or more veggies on your plate! Avoid junk food!";
     container.appendChild(rules);
 
+    // Score & Timer
     const scoreDisplay = document.createElement("p");
     scoreDisplay.id = "eco-score";
-    scoreDisplay.textContent = "Low-Impact: 0 | High-Impact: 0";
+    scoreDisplay.textContent = "Veggies: 0 | Junk: 0";
     container.appendChild(scoreDisplay);
 
+    const timerDisplay = document.createElement("p");
+    timerDisplay.id = "eco-timer";
+    timerDisplay.textContent = "Time left: 12s";
+    container.appendChild(timerDisplay);
+
+    // Plate
     const plateContainer = document.createElement("div");
     plateContainer.classList.add("plate-container");
     container.appendChild(plateContainer);
@@ -33,6 +37,7 @@ function startEcoPlateGame(callback) {
     plate.classList.add("plate");
     plateContainer.appendChild(plate);
 
+    // Foods
     const foods = [
         { name: "🥦", type: "low" },
         { name: "🥕", type: "low" },
@@ -49,7 +54,7 @@ function startEcoPlateGame(callback) {
     let highImpactCount = 0;
     let finished = false;
 
-    // Arrange foods nicely at the bottom
+    // Arrange foods in a row
     const foodRow = document.createElement("div");
     foodRow.classList.add("food-row");
     container.appendChild(foodRow);
@@ -65,6 +70,18 @@ function startEcoPlateGame(callback) {
         foodEl.addEventListener("click", () => placeFood(foodEl, food.type, food.name));
     });
 
+    // Timer
+    let timeLeft = 12;
+    const timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `Time left: ${timeLeft}s`;
+        if (timeLeft <= 0 && !finished) {
+            finished = true;
+            endGame();
+        }
+    }, 1000);
+
+    // Particle effect
     function createParticle(x, y, color) {
         for (let i = 0; i < 5; i++) {
             const particle = document.createElement("div");
@@ -100,7 +117,7 @@ function startEcoPlateGame(callback) {
         if (type === "low") lowImpactCount++;
         else highImpactCount++;
 
-        scoreDisplay.textContent = `Low-Impact: ${lowImpactCount} | High-Impact: ${highImpactCount}`;
+        scoreDisplay.textContent = `Veggies: ${lowImpactCount} | Junk: ${highImpactCount}`;
         if (element) element.remove();
 
         if (lowImpactCount >= 4 || lowImpactCount + highImpactCount >= foods.length) {
@@ -110,14 +127,16 @@ function startEcoPlateGame(callback) {
     }
 
     function endGame() {
+        clearInterval(timerInterval);
         let resultMessage = "";
+
         if (lowImpactCount >= 4) {
             playerStats.env += 3;
-            resultMessage = `🥗 “Green plate victory! You made the planet proud! Env +3 🌱✨`;
-            launchConfetti(); // celebrate success
+            resultMessage = `🥗 Great job! Env +3 🌱`;
+            launchConfetti();
         } else {
             playerStats.env -= 3;
-            resultMessage = `🥦 Better luck next time! Keep those veggies coming! Env -3 🥗`;
+            resultMessage = `😢 Not enough veggies. Env -3 🥦`;
         }
         updateStats();
 
