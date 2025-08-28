@@ -698,3 +698,13 @@
   height: 24px;
   filter: invert(1);
 }
+
+/* Landing page -> game page */
+.page-transition {
+  animation: fadeOut 0.6s ease forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.98); }
+}

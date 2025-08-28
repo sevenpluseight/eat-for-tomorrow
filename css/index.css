@@ -301,6 +301,56 @@ body.dark .card-back {
 }
 
 body.dark .card-back {
-  background: #1e1e1e;
+  background: #595959;
 }
 
+.dark-mode .plate-container {
+    background: radial-gradient(circle at 30% 30%, #2b2b2b, #1a1a1a);
+    border: 4px solid #81c784;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+.dark-mode .plate {
+    background: radial-gradient(circle at 40% 40%, #2e2e2e, #3b3b3b);
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode #supermarket-dash {
+  color: #f1f5f9;
+}
+
+body.dark-mode .dash-play-area {
+  background: #1f2937;
+  border: 1px solid #374151;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .healthy-catch {
+  animation: healthyFlashDark 0.3s ease;
+}
+
+@keyframes healthyFlashDark {
+  0%   { background-color: #064e3b; }
+  50%  { background-color: #10b981; }
+  100% { background-color: #1f2937; }
+}
+
+body.dark-mode .junk-catch {
+  animation: junkFlashDark 0.3s ease;
+}
+
+@keyframes junkFlashDark {
+  0%   { background-color: #7f1d1d; }
+  50%  { background-color: #ef4444; }
+  100% { background-color: #1f2937; }
+}
+
+body.dark-mode .coin-catch {
+  animation: coinFlashDark 0.3s ease;
+}
+
+@keyframes coinFlashDark {
+  0%   { background-color: #78350f; }
+  50%  { background-color: #facc15; }
+  100% { background-color: #1f2937; }
+}
