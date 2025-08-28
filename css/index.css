@@ -1,3 +1,11 @@
+/* Prevent text selection across the entire project */
+* {
+    user-select: none;         /* Standard */
+    -webkit-user-select: none; /* Safari/Chrome */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE/Edge */
+}
+
 html, body {
   margin: 0;
   padding: 0;
