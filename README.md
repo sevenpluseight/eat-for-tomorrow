@@ -1,4 +1,4 @@
-# 🍎 Eat For Tomorrow: The Food Choices Journey 🍈
+<h1 align="center">🍎 Eat For Tomorrow: The Food Choices Journey 🍈</h1>
 
 <p align="center">
   <img src="assets/images/light-dark-theme-comparison.png" alt="Hero Section Light & Dark" width="800"/>
