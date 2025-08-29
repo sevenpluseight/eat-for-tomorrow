@@ -4,6 +4,7 @@ let playerStats = {
     wallet: 0,
     env: 0
 };
+let currentProgressPercent = 0;
 
 const gameContainer = document.getElementById('game-container');
 const statsContainer = document.getElementById('stats-container');
@@ -245,17 +246,22 @@ function setupMarkers() {
 
 function moveCharacter(dayIndex) {
     const totalDays = 14;
+    if (dayIndex >= totalDays) dayIndex = totalDays - 1;
+    if (dayIndex < 0) dayIndex = 0;
+
+    currentProgressPercent = (dayIndex / (totalDays - 1)) * 100;
+    updateCharacterPosition();
+}
+
+function updateCharacterPosition() {
     const path = document.getElementById("path");
     const char = document.getElementById("character");
 
     const pathWidth = path.clientWidth;
     const charWidth = char.clientWidth;
-    const step = (pathWidth - charWidth) / (totalDays - 1);
 
-    if (dayIndex >= totalDays) dayIndex = totalDays - 1;
-    if (dayIndex < 0) dayIndex = 0;
-
-    char.style.left = (dayIndex * step) + "px";
+    const leftPx = (currentProgressPercent / 100) * (pathWidth - charWidth);
+    char.style.left = leftPx + "px";
 }
 
 // Confetti
@@ -280,6 +286,8 @@ function launchConfetti() {
         if (Date.now() < end) requestAnimationFrame(frame);
     })();
 }
-
+window.addEventListener("resize", () => {
+    updateCharacterPosition();
+});
 updateStats();
 showDay();
