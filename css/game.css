@@ -17,6 +17,10 @@
 }
 
 #game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
     width: 90%;
     max-width: 900px;
@@ -217,19 +221,28 @@ p {
 } */
 
 .floating-change {
-    background: rgba(0, 0, 0, 0.75);
-    color: white;
-    padding: 0.4rem 0.8rem;
+    background: #f0f0f0;
+    padding: 0.3rem 0.6rem;
     border-radius: 6px;
     font-size: clamp(0.8rem, 1.5vw, 1.2rem);
     font-weight: bold;
     pointer-events: none;
     position: absolute;
     left: 50%;
+    display: inline-block;
+    transform-origin: center;
     transform: translateX(-50%) translateY(0) scale(1);
     opacity: 0;
     animation: floatUpSmooth 2.5s ease-in-out forwards;
+    z-index: 9999;
+    white-space: nowrap;     
+    max-width: 90vw;    
+    overflow: hidden;     
 }
+
+.floating-change .health { color: #e63946; }
+.floating-change .wallet { color: #ffb703; }
+.floating-change .env { color: #2a9d8f; }
 
 @keyframes floatUpSmooth {
     0% {
@@ -265,6 +278,8 @@ p {
   #app {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
   }
 
@@ -277,7 +292,7 @@ p {
   #game-container {
     flex: 1;
     width: 100%;
-    margin: 0;
+    margin: 9vh auto;
     overflow-y: auto;
   }
 
@@ -303,8 +318,8 @@ p {
 @media (min-width: 1200px) {
     #game-container {
         max-width: 850px;
-        margin-top: 10vh;            /* more space from top for stats */
-        min-height: calc(55vh);      /* container slightly smaller vertically */
+        margin-top: 10vh;            
+        min-height: calc(55vh);     
         max-height: calc(75vh);
     }
 }
@@ -673,7 +688,7 @@ body.dark-mode #food {
 }
 
 /* Points floating CSS - path bar */
-.floating-change {
+/* .floating-change {
   font-size: 1.2rem;
   font-weight: bold;
   z-index: 9999;
@@ -682,7 +697,7 @@ body.dark-mode #food {
 
 .floating-change .health { color: #e63946; }
 .floating-change .wallet { color: #ffb703; }
-.floating-change .env { color: #2a9d8f; }
+.floating-change .env { color: #2a9d8f; } */
 
 /* Confetti CSS */
 .confetti {
