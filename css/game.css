@@ -17,16 +17,23 @@
 }
 
 #game-container {
-  position: relative;
-  width: 90%;
-  max-width: 900px;
-  margin: 8vh auto 1vh auto;
-  padding: 2rem;
-  box-sizing: border-box;
-  border-radius: 20px;
-  background: #f9f9f9;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    margin: 10vh auto 2vh auto;      
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background: #f9f9f9;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    min-height: calc(60vh);         
+    max-height: calc(80vh);         
+    overflow: hidden;              
 }
 
 #game-container:hover {
@@ -40,7 +47,7 @@
 
 #game-container h2, 
 #game-container p {
-  margin: 0.2rem 0;
+  margin: 0.3rem 0;
   color: inherit;
 }
 
@@ -51,14 +58,13 @@
     right: 1rem;
     background: rgba(255, 255, 255, 0.85);
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     font-size: clamp(0.8rem, 2vw, 1.2rem);
     z-index: 100;
-    max-width: 40%;
+    max-width: 90vw;
     white-space: nowrap;
     overflow-x: auto;
-    max-width: 90vw;
 }
 
 h2 {
@@ -101,8 +107,7 @@ p {
 
 #choices-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
     justify-items: center;
     align-items: center;
@@ -113,22 +118,19 @@ p {
 }
 
 .choice-btn {
-    /* width: 105%; */
-    width: 280px;
-    /* height: 85px; */
+    width: 100%;
+    max-width: 280px;
     height: 90px;
     white-space: normal;
     word-wrap: break-word;
     font-size: clamp(0.9rem, 1.5vw, 1.2rem);
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 12px;
     border: none;
     background: #ffffff;
     color: #333;
     font-weight: 600;
-    box-shadow: 
-        0 4px 6px rgba(0,0,0,0.1),
-        inset 0 -3px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1), inset 0 -3px 6px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -161,14 +163,12 @@ p {
 
 .choice-btn:hover {
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15),
-                inset 0 -3px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15), inset 0 -3px 8px rgba(0,0,0,0.05);
 }
 
 .choice-btn:active {
     transform: translateY(0) scale(0.98);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.12),
-                inset 0 -2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 -2px 4px rgba(0,0,0,0.05);
 }
 
 @keyframes moveGradient {
@@ -183,13 +183,12 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 850px;
+    width: 100%;
+    max-width: 850px;
     height: 550px;
-    position: absolute;
-    /* max-width: 900px; */
-    /* margin: 8vh auto 2vh auto; */
+    position: relative;
     margin: auto;
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 1rem;
     box-sizing: border-box;
     gap: 1rem;
     text-align: center;
@@ -222,19 +221,28 @@ p {
 } */
 
 .floating-change {
-    background: rgba(0, 0, 0, 0.75);
-    color: white;
-    padding: 0.4rem 0.8rem;
+    background: #f0f0f0;
+    padding: 0.3rem 0.6rem;
     border-radius: 6px;
     font-size: clamp(0.8rem, 1.5vw, 1.2rem);
     font-weight: bold;
     pointer-events: none;
     position: absolute;
     left: 50%;
+    display: inline-block;
+    transform-origin: center;
     transform: translateX(-50%) translateY(0) scale(1);
     opacity: 0;
     animation: floatUpSmooth 2.5s ease-in-out forwards;
+    z-index: 9999;
+    white-space: nowrap;     
+    max-width: 90vw;    
+    overflow: hidden;     
 }
+
+.floating-change .health { color: #e63946; }
+.floating-change .wallet { color: #ffb703; }
+.floating-change .env { color: #2a9d8f; }
 
 @keyframes floatUpSmooth {
     0% {
@@ -258,7 +266,7 @@ p {
     }
 }
 
-/* Media Queries for small screens */
+/* Media Queries for different screens */
 @media (max-width: 600px) {
   body, html {
     height: 100%;
@@ -270,6 +278,8 @@ p {
   #app {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
   }
 
@@ -282,7 +292,7 @@ p {
   #game-container {
     flex: 1;
     width: 100%;
-    margin: 0;
+    margin: 9vh auto;
     overflow-y: auto;
   }
 
@@ -303,6 +313,15 @@ p {
   #journey-container {
     flex-shrink: 0;
   }
+}
+
+@media (min-width: 1200px) {
+    #game-container {
+        max-width: 850px;
+        margin-top: 10vh;            
+        min-height: calc(55vh);     
+        max-height: calc(75vh);
+    }
 }
 
 .ending-container {
@@ -569,7 +588,6 @@ body.dark-mode .play-again-btn:hover {
   margin: 2rem auto;
   width: 90%;
   max-width: 800px;
-  height: 80px;
   position: relative;
 }
 
@@ -594,7 +612,7 @@ body.dark-mode .play-again-btn:hover {
   z-index: 2;
   top: calc(50% - 20px);
   left: 0;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
 }
@@ -615,7 +633,7 @@ body.dark-mode .play-again-btn:hover {
   position: absolute;
   z-index: 1;
   font-size: 2rem;
-  bottom: 30px;
+  bottom: 2px;
   left: 50%;
   transform: translateX(-50%) scale(0.8);
   opacity: 0;
@@ -670,7 +688,7 @@ body.dark-mode #food {
 }
 
 /* Points floating CSS - path bar */
-.floating-change {
+/* .floating-change {
   font-size: 1.2rem;
   font-weight: bold;
   z-index: 9999;
@@ -679,7 +697,7 @@ body.dark-mode #food {
 
 .floating-change .health { color: #e63946; }
 .floating-change .wallet { color: #ffb703; }
-.floating-change .env { color: #2a9d8f; }
+.floating-change .env { color: #2a9d8f; } */
 
 /* Confetti CSS */
 .confetti {
@@ -698,11 +716,15 @@ body.dark-mode #food {
 }
 
 /* Quick Click CSS */
+.spacer {
+    height: var(--spacer-height, 10px); 
+}
+
 .game-hint {
-  font-size: 0.85rem;
+  font-size: 1.0rem;
   font-style: italic;
   color: #666;
-  margin-top: -0.3rem;
+  margin-top: 3rem;
   margin-bottom: 1rem;
 }
 
@@ -712,6 +734,14 @@ body.dark-mode #food {
     height: 55px;
     perspective: 600px;
     cursor: pointer;
+}
+
+.memory-rule {
+    font-size: 1.2rem;      
+    text-align: center;
+    margin: 1rem 0;
+    color: #333;           
+    font-style: italic;     
 }
 
 .card-inner {
@@ -802,20 +832,33 @@ body.dark-mode #food {
 .plate-container {
     width: 180px;
     height: 180px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     background: radial-gradient(circle at 30% 30%, #ffffff, #f1f1f1);
-    border: 4px solid #4caf50;
+    border: 4px solid #f5e6a7; 
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 1rem auto;
     position: relative;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease; 
+}
+
+/* Success (veggie) border */
+.plate-container.success {
+    border-color: #4caf50;
+}
+
+/* Fail (junk) border */
+.plate-container.fail {
+    border-color: #f44336;
 }
 
 .plate {
     width: 140px;
     height: 140px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     background: radial-gradient(circle at 40% 40%, #fffdf5, #fff5cc);
     display: flex;
@@ -827,18 +870,25 @@ body.dark-mode #food {
 }
 
 .food-item {
-    font-size: 2rem;
+    flex: 1 1 auto;
+    font-size: clamp(1.3rem, 4vw, 2.5rem);
     cursor: grab;
     margin: 0.5rem;
     display: inline-block;
 }
 
-/* .game-hint {
-    font-size: 0.85rem;
-    font-style: italic;
-    color: #666;
-    margin-bottom: 0.5rem;
-} */
+.eco-rule {
+    font-size: 1.4rem;        
+    font-style: italic;       
+    text-align: center;
+    margin: 2rem 0 1rem 0;
+    color: #333;             
+}
+
+/* Make only emojis non-italic */
+.eco-rule .emoji {
+    font-style: normal;
+}
 
 /* Supermarket Dash CSS */
 #supermarket-dash .game-hint {
@@ -855,6 +905,20 @@ body.dark-mode #food {
   text-align: center;
   font-style: normal;
 }
+
+.dash-hint {
+    font-size: 1.0rem;
+    margin: 12px 0 16px;
+    line-height: 1.6;
+    text-align: center;
+    font-style: normal;
+    max-width: 85%;
+    color: #333; 
+}
+
+.dash-hint .healthy { color: #34d399; font-weight: bold; }
+.dash-hint .junk { color: #ef4444; font-weight: bold; }
+.dash-hint .coin { color: #facc15; font-weight: bold; }
 
 .dash-play-area {
   width: 360px !important;
@@ -905,3 +969,4 @@ body.dark-mode #food {
 .dropped-food {
     font-size: 1.8rem;
 }
+

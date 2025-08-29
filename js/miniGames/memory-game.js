@@ -12,12 +12,12 @@ function startMemoryMatchGame(callback) {
     title.textContent = "Memory Match Challenge 🧠";
     container.appendChild(title);
 
-    // Rule / Hint
+    // Rule
     const rule = document.createElement("p");
-    rule.innerHTML = `<em style="font-size: 0.9rem; color: #555;">
-        Find all pairs within 20 seconds to boost your Health!
-    </em>`;
+    rule.classList.add("memory-rule");
+    rule.textContent = "Find all pairs within 20 seconds to boost your Health!";
     container.appendChild(rule);
+
 
     // Timer
     const timerDisplay = document.createElement("p");
@@ -160,6 +160,7 @@ function startMemoryMatchGame(callback) {
                 <div class="screen-container fade-in show">
                     <h2>Game Over!</h2>
                     <p>${resultMessage}</p>
+                    <br>
                     <button class="choice-btn" id="continue-btn" disabled>Continue</button>
                 </div>
             `;

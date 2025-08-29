@@ -11,11 +11,12 @@ function startEcoPlateGame(callback) {
     title.textContent = "Eco Plate 🌱";
     container.appendChild(title);
 
-    // Short Rule
+    // Rules
     const rules = document.createElement("p");
-    rules.classList.add("game-hint");
-    rules.textContent = "Place 4 or more veggies on your plate! Avoid junk food!";
+    rules.classList.add("eco-rule");
+    rules.innerHTML = '<span class="emoji">🥗</span> Collect 5 veggies! Avoid junk food! <span class="emoji">⏳</span>';
     container.appendChild(rules);
+
 
     // Score & Timer
     const scoreDisplay = document.createElement("p");
@@ -25,7 +26,7 @@ function startEcoPlateGame(callback) {
 
     const timerDisplay = document.createElement("p");
     timerDisplay.id = "eco-timer";
-    timerDisplay.textContent = "Time left: 12s";
+    timerDisplay.textContent = "Time left: 12s ⏳";
     container.appendChild(timerDisplay);
 
     // Plate
@@ -36,54 +37,49 @@ function startEcoPlateGame(callback) {
     const plate = document.createElement("div");
     plate.classList.add("plate");
     plateContainer.appendChild(plate);
+    plateContainer.style.border = "4px solid #f5e6a2";
 
-    // Foods
-    // const foods = [
-    //     { name: "🥦", type: "low" },
-    //     { name: "🥕", type: "low" },
-    //     { name: "🍎", type: "low" },
-    //     { name: "🍌", type: "low" },
-    //     { name: "🥑", type: "low" },
-    //     { name: "🍔", type: "high" },
-    //     { name: "🍕", type: "high" },
-    //     { name: "🍟", type: "high" },
-    //     { name: "🍫", type: "high" }
-    // ];
-
+    // Food pool
     const allFoods = [
-      { name: "🥦", type: "low" },
-      { name: "🥕", type: "low" },
-      { name: "🍎", type: "low" },
-      { name: "🍌", type: "low" },
-      { name: "🥑", type: "low" },
-      { name: "🍇", type: "low" },
-      { name: "🍓", type: "low" },
-
-      { name: "🍔", type: "high" },
-      { name: "🍕", type: "high" },
-      { name: "🍟", type: "high" },
-      { name: "🍫", type: "high" },
-      { name: "🥤", type: "high" },
+        // Veggies
+        { name: "🥦", type: "low" }, { name: "🥕", type: "low" },
+        { name: "🍎", type: "low" }, { name: "🍌", type: "low" },
+        { name: "🥑", type: "low" }, { name: "🌽", type: "low" },
+        { name: "🍓", type: "low" }, { name: "🥬", type: "low" },
+        { name: "🍇", type: "low" }, { name: "🍉", type: "low" },
+        // Junk
+        { name: "🍔", type: "high" }, { name: "🍕", type: "high" },
+        { name: "🍟", type: "high" }, { name: "🍫", type: "high" },
+        { name: "🥤", type: "high" }, { name: "🍩", type: "high" }
     ];
 
-    // Guarantee at least 4 veggies in the selection
+    // Shuffle helper
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // Guarantee enough veggies & junk
     const veggies = allFoods.filter(f => f.type === "low");
     const junk = allFoods.filter(f => f.type === "high");
 
-    // Pick 4 random veggies
-    const chosenVeggies = veggies.sort(() => Math.random() - 0.5).slice(0, 4);
+    const chosenVeggies = shuffleArray([...veggies]).slice(0, 6); // always ≥5 veggies
+    const chosenJunk = shuffleArray([...junk]).slice(0, 4);       // at least 3 junk
 
-    // Pick 4 random junk foods
-    const chosenJunk = junk.sort(() => Math.random() - 0.5).slice(0, 4);
+    let foods = shuffleArray([...chosenVeggies, ...chosenJunk]);
 
-    // Merge and shuffle again
-    let foods = [...chosenVeggies, ...chosenJunk].sort(() => Math.random() - 0.5);
-    
+    // Game state
     let lowImpactCount = 0;
     let highImpactCount = 0;
+    const maxJunk = 2;     
+    const plateMaxItems = 6;
+    const targetVeggies = 5;
     let finished = false;
 
-    // Arrange foods in a row
+    // Display foods
     const foodRow = document.createElement("div");
     foodRow.classList.add("food-row");
     container.appendChild(foodRow);
@@ -95,7 +91,6 @@ function startEcoPlateGame(callback) {
         foodEl.dataset.type = food.type;
         foodRow.appendChild(foodEl);
 
-        // Click to place
         foodEl.addEventListener("click", () => placeFood(foodEl, food.type, food.name));
     });
 
@@ -103,7 +98,7 @@ function startEcoPlateGame(callback) {
     let timeLeft = 12;
     const timerInterval = setInterval(() => {
         timeLeft--;
-        timerDisplay.textContent = `Time left: ${timeLeft}s`;
+        timerDisplay.textContent = `Time left: ${timeLeft}s ⏳`;
         if (timeLeft <= 0 && !finished) {
             finished = true;
             endGame();
@@ -132,8 +127,38 @@ function startEcoPlateGame(callback) {
         }
     }
 
+    // Junk shake effect
+    function shakeElement(el) {
+        el.animate([
+            { transform: "translateX(0)" },
+            { transform: "translateX(-5px)" },
+            { transform: "translateX(5px)" },
+            { transform: "translateX(0)" }
+        ], { duration: 300 });
+
+        el.style.filter = "drop-shadow(0 0 6px red) drop-shadow(0 0 12px red)";
+        setTimeout(() => { el.style.filter = ""; }, 400);
+    }
+
+    function shakePlate() {
+    plateContainer.animate([
+        { transform: "translateX(0)" },
+        { transform: "translateX(-8px)" },
+        { transform: "translateX(8px)" },
+        { transform: "translateX(0)" }
+    ], { duration: 400 });
+    }
+
+    function flashPlateBorder(color) {
+    plateContainer.style.borderColor = color;
+    setTimeout(() => {
+        plateContainer.style.borderColor = "#f5e6a2";
+    }, 400);
+    }
+
     function placeFood(element, type, emoji) {
         if (finished) return;
+        if (plate.children.length >= plateMaxItems) return;
 
         const droppedItem = document.createElement("span");
         droppedItem.textContent = emoji;
@@ -141,15 +166,38 @@ function startEcoPlateGame(callback) {
         plate.appendChild(droppedItem);
 
         const plateRect = plate.getBoundingClientRect();
-        createParticle(plateRect.left + plateRect.width / 2, plateRect.top + plateRect.height / 2, type === "low" ? "green" : "red");
+        createParticle(
+            plateRect.left + plateRect.width / 2,
+            plateRect.top + plateRect.height / 2,
+            type === "low" ? "green" : "red"
+        );
 
-        if (type === "low") lowImpactCount++;
-        else highImpactCount++;
+        if (type === "low") {
+            lowImpactCount++;
+            flashPlateBorder("green");
+        } else {
+            highImpactCount++;
+            flashPlateBorder("red");
+            shakeElement(element);
+            shakePlate();
+        }
 
         scoreDisplay.textContent = `Veggies: ${lowImpactCount} | Junk: ${highImpactCount}`;
         if (element) element.remove();
 
-        if (lowImpactCount >= 4 || lowImpactCount + highImpactCount >= foods.length) {
+        if (highImpactCount >= maxJunk) {
+            finished = true;
+            endGame();
+            return;
+        }
+
+        if (lowImpactCount >= targetVeggies) {
+            finished = true;
+            endGame();
+            return;
+        }
+
+        if (plate.children.length >= plateMaxItems && lowImpactCount < targetVeggies) {
             finished = true;
             endGame();
         }
@@ -157,15 +205,18 @@ function startEcoPlateGame(callback) {
 
     function endGame() {
         clearInterval(timerInterval);
-        let resultMessage = "";
 
-        if (lowImpactCount >= 4) {
+        let resultMessage = "";
+        if (lowImpactCount >= targetVeggies && highImpactCount < maxJunk) {
             playerStats.env += 3;
-            resultMessage = `🥗 Great job! Env +3 🌱`;
+            resultMessage = `🌿 Excellent! Env +3`;
             launchConfetti();
+        } else if (highImpactCount >= maxJunk) {
+            playerStats.env -= 3;
+            resultMessage = `😖 Too much junk! Env -3`;
         } else {
             playerStats.env -= 3;
-            resultMessage = `😢 Not enough veggies. Env -3 🥦`;
+            resultMessage = `🥲 Not enough veggies. Env -3`;
         }
         updateStats();
 
@@ -173,6 +224,7 @@ function startEcoPlateGame(callback) {
             <div class="screen-container fade-in show">
                 <h2>Eco Plate Result</h2>
                 <p>${resultMessage}</p>
+                <br>
                 <button class="choice-btn" id="continue-btn">Continue</button>
             </div>
         `;

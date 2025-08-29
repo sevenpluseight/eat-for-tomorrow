@@ -21,6 +21,8 @@ function startQuickClickGame(callback) {
     timerDisplay.textContent = "Time left: 5s";
     container.appendChild(timerDisplay);
 
+    container.appendChild(createSpacer("5px"));
+
     // Click button
     const clickBtn = document.createElement("button");
     clickBtn.textContent = "Click me!";
@@ -31,6 +33,8 @@ function startQuickClickGame(callback) {
     const scoreDisplay = document.createElement("p");
     scoreDisplay.textContent = "Clicks: 0";
     container.appendChild(scoreDisplay);
+
+    container.appendChild(createSpacer("5px"));
 
     // Rule hint
     const ruleHint = document.createElement("p");
@@ -56,7 +60,7 @@ function startQuickClickGame(callback) {
 
             let resultMessage = "";
             if (score >= 15) {
-                playerStats.wallet += 2; // fixed to +2 (not +score)
+                playerStats.wallet += 2; 
                 resultMessage = `🎉 Great! You scored <strong>${score}</strong> clicks! Wallet +2`;
                 launchConfetti();
             } else {
@@ -69,6 +73,7 @@ function startQuickClickGame(callback) {
                 <div class="screen-container fade-in show">
                     <h2>Game Over!</h2>
                     <p>${resultMessage}</p>
+                    <br>
                     <button class="choice-btn" id="continue-btn" disabled>Continue</button>
                 </div>
             `;
@@ -86,5 +91,12 @@ function startQuickClickGame(callback) {
     }, 1000);
 
     gameContainer.appendChild(container);
-    setTimeout(() => container.classList.add("show"), 10); // fade-in animation
+    setTimeout(() => container.classList.add("show"), 10); 
+}
+
+function createSpacer(height = "10px") {
+    const spacer = document.createElement("div");
+    spacer.classList.add("spacer");
+    spacer.style.setProperty("--spacer-height", height);
+    return spacer;
 }
