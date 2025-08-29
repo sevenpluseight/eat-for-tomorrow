@@ -84,15 +84,41 @@ function startMemoryMatchGame(callback) {
             card.flipped = true;
             cardEl.classList.add("flipped");
 
+            // if (!firstCard) {
+            //     firstCard = { card, el: cardEl };
+            // } else {
+            //     lockBoard = true;
+            //     setTimeout(() => {
+            //         if (firstCard.card.icon === card.icon) {
+            //             card.matched = true;
+            //             firstCard.card.matched = true;
+            //             matchedCount++;
+            //             pairTracker.textContent = `Pairs: ${matchedCount} / ${icons.length}`;
+            //         } else {
+            //             card.flipped = false;
+            //             firstCard.card.flipped = false;
+            //             cardEl.classList.remove("flipped");
+            //             firstCard.el.classList.remove("flipped");
+            //         }
+            //         firstCard = null;
+            //         lockBoard = false;
+            //     }, 800);
+            // }
+
             if (!firstCard) {
                 firstCard = { card, el: cardEl };
             } else {
                 lockBoard = true;
+
                 setTimeout(() => {
                     if (firstCard.card.icon === card.icon) {
                         card.matched = true;
                         firstCard.card.matched = true;
                         matchedCount++;
+
+                        cardEl.classList.add("matched");
+                        firstCard.el.classList.add("matched");
+
                         pairTracker.textContent = `Pairs: ${matchedCount} / ${icons.length}`;
                     } else {
                         card.flipped = false;

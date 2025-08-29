@@ -257,7 +257,7 @@ function moveCharacter(dayIndex) {
     char.style.left = (dayIndex * step) + "px";
 }
 
-// confetti
+// Confetti
 function launchConfetti() {
     const duration = 3000;
     const end = Date.now() + duration;

@@ -113,11 +113,15 @@ p {
 }
 
 .choice-btn {
-    width: 105%;
-    height: 85px;
+    /* width: 105%; */
+    width: 280px;
+    /* height: 85px; */
+    height: 90px;
+    white-space: normal;
+    word-wrap: break-word;
     font-size: clamp(0.9rem, 1.5vw, 1.2rem);
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 10px;
     border: none;
     background: #ffffff;
     color: #333;
@@ -179,13 +183,14 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    width: 90%;
-    max-width: 900px;
-    margin: 8vh auto 2vh auto;
-    padding: 1rem;
+    width: 850px;
+    height: 550px;
+    position: absolute;
+    /* max-width: 900px; */
+    /* margin: 8vh auto 2vh auto; */
+    margin: auto;
+    padding: 1rem 1rem 1rem 1rem;
     box-sizing: border-box;
-
     gap: 1rem;
     text-align: center;
 }
@@ -259,26 +264,26 @@ p {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* prevent page scrolling */
+    overflow: hidden;
   }
 
   #app {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* full viewport height */
+    height: 100vh;
   }
 
   #stats-container {
     font-size: 0.85rem;
     padding: 0.3rem 0.5rem;
-    flex-shrink: 0; /* don’t shrink away */
+    flex-shrink: 0;
   }
 
   #game-container {
-    flex: 1; /* take remaining space */
+    flex: 1;
     width: 100%;
-    margin: 0; /* remove vh margins */
-    overflow-y: auto; /* allow inner scroll if too much content */
+    margin: 0;
+    overflow-y: auto;
   }
 
   #choices-container {
@@ -291,12 +296,12 @@ p {
 
   .choice-btn {
     width: 100%;
-    height: 55px; /* shorter so more fits */
+    height: 55px;
     font-size: 0.9rem;
   }
 
   #journey-container {
-    flex-shrink: 0; /* always visible */
+    flex-shrink: 0;
   }
 }
 
@@ -413,16 +418,16 @@ body.dark-mode .mode-icon:last-child {
     opacity: 1;
 } */
 
-.mode-icon:first-child {
+/* .mode-icon:first-child {
     opacity: 1;
 }
 
 .mode-icon:last-child {
     opacity: 0.4;
-}
+} */
 
 /* Toggle slider */
-.switch {
+/* .switch {
   position: relative;
   display: inline-block;
   width: 50px;
@@ -465,7 +470,7 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(24px);
-}
+} */
 
 /* Dark Mode */
 /* body.dark-mode {
@@ -664,15 +669,6 @@ body.dark-mode #food {
   transform: translateX(-3px);
 }
 
-body.dark-mode .go-back-btn {
-  background: rgba(40, 40, 40, 0.9);
-  color: #eee;
-}
-
-body.dark-mode .go-back-btn:hover {
-  background: rgba(60, 60, 60, 1);
-}
-
 /* Points floating CSS - path bar */
 .floating-change {
   font-size: 1.2rem;
@@ -701,19 +697,20 @@ body.dark-mode .go-back-btn:hover {
   }
 }
 
+/* Quick Click CSS */
 .game-hint {
-  font-size: 0.85rem;   /* smaller */
-  font-style: italic;   /* italic */
-  color: #666;          /* softer */
-  margin-top: -0.3rem;  /* closer to instructions */
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #666;
+  margin-top: -0.3rem;
   margin-bottom: 1rem;
 }
 
-/* 🎮 Memory Match Game Styles (smaller layout) */
+/* Memory Game CSS */
 .memory-card {
-    width: 55px;   /* smaller width */
-    height: 55px;  /* smaller height */
-    perspective: 500px;
+    width: 55px;
+    height: 55px;
+    perspective: 600px;
     cursor: pointer;
 }
 
@@ -729,25 +726,55 @@ body.dark-mode .go-back-btn:hover {
     transform: rotateY(180deg);
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
     position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;   /* smaller icons */
+    font-size: 1.8rem;
     border-radius: 6px;
     backface-visibility: hidden;
-    background: #f0f0f0;
+    /* background: #f0f0f0; */
+    background: #fefefe;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .card-back {
-    background: #fff;
+    background: #fffae5;
     transform: rotateY(180deg);
 }
 
-.plate-container {
+.memory-card .card-back,
+.memory-card .card-front {
+  transition: background-color 0.4s ease, transform 0.3s ease;
+}
+
+.memory-card.matched .card-back {
+  background: #76e42d;
+  color: #1b5e20;
+  font-weight: bold;
+  transform: scale(1.1);
+}
+
+.memory-card.matched .card-front {
+  background: #a5d6a7;
+}
+
+.memory-card.matched {
+  animation: popMatched 0.4s ease forwards;
+}
+
+@keyframes popMatched {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Eco Plate CSS */
+/* .plate-container {
     width: 180px;
     height: 180px;
     border-radius: 50%;
@@ -770,23 +797,111 @@ body.dark-mode .go-back-btn:hover {
     align-items: center;
     justify-content: center;
     gap: 5px;
+} */
+
+.plate-container {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #f1f1f1);
+    border: 4px solid #4caf50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    position: relative;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.plate {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, #fffdf5, #fff5cc);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .food-item {
-    font-size: 1.5rem;
+    font-size: 2rem;
     cursor: grab;
-    margin: 0.3rem;
+    margin: 0.5rem;
     display: inline-block;
 }
 
-.dropped-food {
-    font-size: 1.5rem;
-}
-
-.game-hint {
+/* .game-hint {
     font-size: 0.85rem;
     font-style: italic;
     color: #666;
     margin-bottom: 0.5rem;
+} */
+
+/* Supermarket Dash CSS */
+#supermarket-dash .game-hint {
+  font-size: 0.95rem;
+  margin: 12px 0 16px;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: #333;
+  border: none;
+  box-shadow: none;
+  max-width: 85%;
+  line-height: 1.6;
+  text-align: center;
+  font-style: normal;
 }
 
+.dash-play-area {
+  width: 360px !important;
+  height: 500px !important;
+  margin: 0 auto 18px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+/* Healthy food flashy CSS */
+.healthy-catch {
+  animation: healthyFlash 0.3s ease;
+}
+
+@keyframes healthyFlash {
+  0%   { background-color: #d1fae5; }
+  50%  { background-color: #34d399; }
+  100% { background-color: #fff; }
+}
+
+/* Junk food flashy CSS */
+.junk-catch {
+  animation: junkFlash 0.3s ease;
+}
+
+@keyframes junkFlash {
+  0%   { background-color: #fee2e2; }
+  50%  { background-color: #ef4444; }
+  100% { background-color: #fff; }
+}
+
+/* Coin flashy CSS */
+.coin-catch {
+  animation: coinFlash 0.3s ease;
+}
+
+@keyframes coinFlash {
+  0%   { background-color: #fef9c3; }
+  50%  { background-color: #facc15; }
+  100% { background-color: #fff; }
+}
+
+.dropped-food {
+    font-size: 1.8rem;
+}

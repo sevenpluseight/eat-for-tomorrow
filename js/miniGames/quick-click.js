@@ -35,7 +35,7 @@ function startQuickClickGame(callback) {
     // Rule hint
     const ruleHint = document.createElement("p");
     ruleHint.textContent = "Rule: 15+ clicks → Wallet +2, otherwise Wallet -2";
-    ruleHint.classList.add("game-hint"); // 👈 reuse small italic style
+    ruleHint.classList.add("game-hint");
     container.appendChild(ruleHint);
 
     let score = 0;
@@ -54,19 +54,17 @@ function startQuickClickGame(callback) {
         if (timeLeft <= 0) {
             clearInterval(countdown);
 
-            // Show results instead of alert
             let resultMessage = "";
             if (score >= 15) {
                 playerStats.wallet += 2; // fixed to +2 (not +score)
                 resultMessage = `🎉 Great! You scored <strong>${score}</strong> clicks! Wallet +2`;
-                launchConfetti(); // trigger confetti here
+                launchConfetti();
             } else {
                 playerStats.wallet -= 2;
                 resultMessage = `😅 You scored only <strong>${score}</strong> clicks. Wallet -2`;
             }
             updateStats();
 
-            // Replace screen with results
             gameContainer.innerHTML = `
                 <div class="screen-container fade-in show">
                     <h2>Game Over!</h2>
@@ -77,7 +75,6 @@ function startQuickClickGame(callback) {
 
             const continueBtn = document.getElementById("continue-btn");
 
-            // Enable the button after 1s
             setTimeout(() => {
                 continueBtn.disabled = false;
             }, 1000);
@@ -88,7 +85,6 @@ function startQuickClickGame(callback) {
         }
     }, 1000);
 
-    // Add container to game area
     gameContainer.appendChild(container);
     setTimeout(() => container.classList.add("show"), 10); // fade-in animation
 }
