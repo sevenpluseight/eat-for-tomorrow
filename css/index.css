@@ -294,6 +294,10 @@ body.dark .game-hint {
   color: #aaa;
 }
 
+body.dark-mode .memory-rule {
+    color: #f0f0f0;        
+}
+
 body.dark .card-front,
 body.dark .card-back {
   background: #2b2b2b;
@@ -318,6 +322,11 @@ body.dark .card-back {
 body.dark-mode #supermarket-dash {
   color: #f1f5f9;
 }
+
+body.dark-mode .dash-hint { color: #f0f0f0; }
+body.dark-mode .dash-hint .healthy { color: #4caf50; }
+body.dark-mode .dash-hint .junk { color: #ff6b6b; }
+body.dark-mode .dash-hint .coin { color: #facc15; }
 
 body.dark-mode .dash-play-area {
   background: #1f2937;

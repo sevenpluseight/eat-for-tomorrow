@@ -199,6 +199,7 @@ function showEnding() {
         <div class="ending-container fade-in" id="ending-content">
             <h2>${endingTitle}</h2>
             <p>${endingTagline}</p>
+            <br>
             <p>Final Stats:</p>
             <div class="final-stats-container">
                 <p>${getStatsEmojis()}</p>

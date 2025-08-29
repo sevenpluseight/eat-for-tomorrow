@@ -11,10 +11,10 @@ function startSupermarketDash(callback) {
     container.appendChild(title);
 
     const rules = document.createElement("p");
-    rules.classList.add("game-hint");
+    rules.classList.add("dash-hint");
     rules.innerHTML = `
-        Catch <span style="color:green"><b>healthy foods</b></span> & <span style="color:gold"><b>coins</b></span>!<br>
-        Avoid <span style="color:red"><b>junk foods</b></span>!<br>
+        Catch <span class="healthy">healthy foods</span> & <span class="coin">coins</span>!<br>
+        Avoid <span class="junk">junk foods</span>!<br>
         ⬅️ ➡️ Use the <b>arrow keys</b> to move your trolley!<br>
         You have 15 seconds!
     `;
@@ -186,6 +186,7 @@ function startSupermarketDash(callback) {
                 <h2>Supermarket Dash Result</h2>
                 <p>🎯 Time's up!</p>
                 <p>${scoreDisplay.textContent}</p>
+                <br>
                 <button class="choice-btn" id="continue-btn">Continue</button>
             </div>
         `;
