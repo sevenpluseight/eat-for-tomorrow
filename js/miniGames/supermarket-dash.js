@@ -75,7 +75,7 @@ function startSupermarketDash(callback) {
     document.addEventListener("keydown", moveBasket);
 
     const timerDisplay = document.createElement("p");
-    timerDisplay.classList.add("game-hint");
+    timerDisplay.classList.add("dash-hint");
     timerDisplay.textContent = `Time left: ${timeLeft}s`;
     container.appendChild(timerDisplay);
 
