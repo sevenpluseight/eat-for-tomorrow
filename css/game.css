@@ -855,7 +855,8 @@ body.dark-mode #food {
 }
 
 .food-item {
-    font-size: 2rem;
+    flex: 1 1 auto;
+    font-size: clamp(1.3rem, 4vw, 2.5rem);
     cursor: grab;
     margin: 0.5rem;
     display: inline-block;
