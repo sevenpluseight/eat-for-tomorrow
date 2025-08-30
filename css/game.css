@@ -233,7 +233,7 @@ p {
     transform-origin: center;
     transform: translateX(-50%) translateY(0) scale(1);
     opacity: 0;
-    animation: floatUpSmooth 1.5s ease-out forwards;
+    animation: floatUpSmooth 0.8s ease-out forwards;
     z-index: 9999;
     white-space: nowrap;     
     max-width: 90vw;    
@@ -775,7 +775,7 @@ body.dark-mode #food {
 
 .memory-card .card-back,
 .memory-card .card-front {
-  transition: background-color 0.4s ease, transform 0.3s ease;
+  transition: background-color 0.4s ease, transform 0.18s ease;
 }
 
 .memory-card.matched .card-back {
@@ -921,7 +921,7 @@ body.dark-mode #food {
   height: 500px !important;
   margin: 0 auto 18px;
   border-radius: 14px;
-  background: #ffffff;
+  background: #f0f0f0;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   border: 1px solid #e5e7eb;
   position: relative;
@@ -929,37 +929,37 @@ body.dark-mode #food {
   transition: background-color 0.3s ease;
 }
 
-/* Healthy food flashy CSS */
+/* Healthy food flash */
 .healthy-catch {
-  animation: healthyFlash 0.3s ease;
+  animation: healthyFlash 0.25s ease;
 }
 
 @keyframes healthyFlash {
-  0%   { background-color: #d1fae5; }
-  50%  { background-color: #34d399; }
-  100% { background-color: #fff; }
+  0%   { background-color: #f8fdfb; }
+  50%  { background-color: rgba(52, 211, 153, 0.15); }
+  100% { background-color: #ffffff; }
 }
 
-/* Junk food flashy CSS */
+/* Junk food flash */
 .junk-catch {
-  animation: junkFlash 0.3s ease;
+  animation: junkFlash 0.25s ease;
 }
 
 @keyframes junkFlash {
-  0%   { background-color: #fee2e2; }
-  50%  { background-color: #ef4444; }
-  100% { background-color: #fff; }
+  0%   { background-color: #fdf8f8; }
+  50%  { background-color: rgba(239, 68, 68, 0.15); }
+  100% { background-color: #ffffff; }
 }
 
-/* Coin flashy CSS */
+/* Coin flash */
 .coin-catch {
-  animation: coinFlash 0.3s ease;
+  animation: coinFlash 0.25s ease;
 }
 
 @keyframes coinFlash {
-  0%   { background-color: #fef9c3; }
-  50%  { background-color: #facc15; }
-  100% { background-color: #fff; }
+  0%   { background-color: #fffef8; }
+  50%  { background-color: rgba(250, 204, 21, 0.15); }
+  100% { background-color: #ffffff; }
 }
 
 .dropped-food {

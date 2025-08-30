@@ -335,31 +335,31 @@ body.dark-mode .dash-play-area {
 }
 
 body.dark-mode .healthy-catch {
-  animation: healthyFlashDark 0.3s ease;
+  animation: healthyFlashDark 0.35s ease;
 }
 
 @keyframes healthyFlashDark {
-  0%   { background-color: #064e3b; }
-  50%  { background-color: #10b981; }
+  0%   { background-color: #1f2937; } 
+  50%  { background-color: rgba(16, 185, 129, 0.35); }
   100% { background-color: #1f2937; }
 }
 
 body.dark-mode .junk-catch {
-  animation: junkFlashDark 0.3s ease;
+  animation: junkFlashDark 0.35s ease;
 }
 
 @keyframes junkFlashDark {
-  0%   { background-color: #7f1d1d; }
-  50%  { background-color: #ef4444; }
+  0%   { background-color: #1f2937; }
+  50%  { background-color: rgba(239, 68, 68, 0.35); }
   100% { background-color: #1f2937; }
 }
 
 body.dark-mode .coin-catch {
-  animation: coinFlashDark 0.3s ease;
+  animation: coinFlashDark 0.35s ease;
 }
 
 @keyframes coinFlashDark {
-  0%   { background-color: #78350f; }
-  50%  { background-color: #facc15; }
+  0%   { background-color: #1f2937; }
+  50%  { background-color: rgba(250, 204, 21, 0.35); }
   100% { background-color: #1f2937; }
 }
