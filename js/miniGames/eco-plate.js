@@ -206,13 +206,16 @@ function startEcoPlateGame(callback) {
     function endGame() {
         clearInterval(timerInterval);
 
+        let envChange = 0;
         let resultMessage = "";
         if (lowImpactCount >= targetVeggies && highImpactCount < maxJunk) {
             playerStats.env += 3;
+            envChange = 3;
             resultMessage = `🌿 Excellent! Env +3`;
             launchConfetti();
         } else if (highImpactCount >= maxJunk) {
             playerStats.env -= 3;
+            envChange = -3;
             resultMessage = `😖 Too much junk! Env -3`;
         } else {
             playerStats.env -= 3;
@@ -228,6 +231,10 @@ function startEcoPlateGame(callback) {
                 <button class="choice-btn" id="continue-btn">Continue</button>
             </div>
         `;
+
+        setTimeout(() => {
+            showFloatingChange(0, 0, envChange, null);
+        }, 200);
 
         document.getElementById("continue-btn").addEventListener("click", () => {
             if (callback) callback();

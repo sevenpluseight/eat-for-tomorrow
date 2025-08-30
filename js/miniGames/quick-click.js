@@ -58,17 +58,23 @@ function startQuickClickGame(callback) {
         if (timeLeft <= 0) {
             clearInterval(countdown);
 
+            let walletChange = 0;
             let resultMessage = "";
+
             if (score >= 15) {
                 playerStats.wallet += 2; 
+                walletChange = 2; 
                 resultMessage = `🎉 Great! You scored <strong>${score}</strong> clicks! Wallet +2`;
                 launchConfetti();
             } else {
                 playerStats.wallet -= 2;
+                walletChange = -2; 
                 resultMessage = `😅 You scored only <strong>${score}</strong> clicks. Wallet -2`;
             }
+
             updateStats();
 
+            // Show Game Over screen
             gameContainer.innerHTML = `
                 <div class="screen-container fade-in show">
                     <h2>Game Over!</h2>
@@ -77,6 +83,11 @@ function startQuickClickGame(callback) {
                     <button class="choice-btn" id="continue-btn" disabled>Continue</button>
                 </div>
             `;
+
+            // Show floating stat change
+            setTimeout(() => {
+                showFloatingChange(0, walletChange, 0, null);
+            }, 200);
 
             const continueBtn = document.getElementById("continue-btn");
 
@@ -94,6 +105,7 @@ function startQuickClickGame(callback) {
     setTimeout(() => container.classList.add("show"), 10); 
 }
 
+// Spacer helper
 function createSpacer(height = "10px") {
     const spacer = document.createElement("div");
     spacer.classList.add("spacer");

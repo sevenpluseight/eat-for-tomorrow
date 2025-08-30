@@ -118,11 +118,11 @@ function startDayMiniGame(dayIndex, callback) {
             updateStats();
             callback();
         });
-    } else if (dayIndex === 6) { // Day 7 (0-indexed)
-        startMemoryMatchGame(() => {   // ✅ this function lives in memoryGame.js
+    } else if (dayIndex === 6) { 
+        startMemoryMatchGame(() => {   
             callback();
         });
-    } else if (dayIndex === 10) { // Day 11
+    } else if (dayIndex === 10) { 
         startEcoPlateGame(() => {
             callback();
         });
@@ -148,25 +148,29 @@ function showFloatingChange(healthChange, walletChange, envChange, choiceIndex, 
     if (envChange) content += `<span class="env">${envChange > 0 ? "🌱+" : "🌱"}${envChange}</span> `;
 
     floating.innerHTML = content;
-
-    floating.style.position = "absolute";
-    floating.style.left = rect.left + window.scrollX + rect.width / 2 + "px";
-    floating.style.top = rect.top + window.scrollY - 40 + "px";
-    floating.style.opacity = 1;
-    floating.style.pointerEvents = "none";
-    floating.style.transition = "all 0.8s ease-out";
-
     document.body.appendChild(floating);
 
-    requestAnimationFrame(() => {
-        floating.style.transform = "translateY(-30px)";
-        floating.style.opacity = "0";
-    });
+    let left = rect.left + window.scrollX + rect.width / 2;
+    let top = rect.top + window.scrollY - 40;
 
-    setTimeout(() => {
+    const fRect = floating.getBoundingClientRect();
+    if (left - fRect.width / 2 < 0) {
+        left = fRect.width / 2;
+    }
+    if (left + fRect.width / 2 > window.innerWidth) {
+        left = window.innerWidth - fRect.width / 2;
+    }
+    if (top < 0) {
+        top = rect.top + window.scrollY + rect.height + 10;
+    }
+
+    floating.style.left = left + "px";
+    floating.style.top = top + "px";
+
+    floating.addEventListener("animationend", () => {
         floating.remove();
         if (callback) callback();
-    }, 800);
+    });
 }
 
 function showEnding() {
