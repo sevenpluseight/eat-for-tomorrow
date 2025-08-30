@@ -163,14 +163,17 @@ function startSupermarketDash(callback) {
         playerStats.env += netChange;
 
         container.innerHTML = `
-            <div class="screen-container fade-in show">
-                <h2>Supermarket Dash Result</h2>
-                <p>🎯 Time's up!</p>
-                <p>${caughtHealthy} healthy vs ${caughtJunk} junk food</p>
-                <p>All stats ${netChange > 0 ? "+1" : "-1"}!</p>
-                <br>
-                <button class="choice-btn" id="continue-btn">Continue</button>
-            </div>
+        <div class="screen-container fade-in show">
+            <h2>Supermarket Dash Result</h2>
+            <p>🎯 Time's up!</p>
+            <p>
+                <span style="color:green;"> ${caughtHealthy} healthy</span> vs 
+                <span style="color:red;"> ${caughtJunk} junk</span>
+            </p>
+            <p>📊 All stats ${netChange > 0 ? "<span style='color:green;'>+1</span>" : "<span style='color:red;'>-1</span>"}!</p>
+            <br>
+            <button class="choice-btn" id="continue-btn">Continue</button>
+        </div>
         `;
 
         if (netChange > 0) {
