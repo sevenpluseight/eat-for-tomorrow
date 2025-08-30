@@ -173,6 +173,10 @@ function startSupermarketDash(callback) {
             </div>
         `;
 
+        if (netChange > 0) {
+            launchConfetti();
+        }
+
         setTimeout(() => {
             showFloatingChange(netChange, netChange, netChange, null);
         }, 200);
