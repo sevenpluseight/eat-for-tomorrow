@@ -173,13 +173,12 @@ function startSupermarketDash(callback) {
             </div>
         `;
 
+        if (netChange > 0) {
+            launchConfetti();
+        }
+
         setTimeout(() => {
-            showFloatingChange(
-                playerStats.health, 
-                playerStats.wallet, 
-                playerStats.env, 
-                null
-            );
+            showFloatingChange(netChange, netChange, netChange, null);
         }, 200);
 
         document.getElementById("continue-btn").addEventListener("click", () => {
