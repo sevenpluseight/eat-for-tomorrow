@@ -174,7 +174,12 @@ function startSupermarketDash(callback) {
         `;
 
         setTimeout(() => {
-            showFloatingChange(netChange, netChange, netChange, null);
+            showFloatingChange(
+                playerStats.health, 
+                playerStats.wallet, 
+                playerStats.env, 
+                null
+            );
         }, 200);
 
         document.getElementById("continue-btn").addEventListener("click", () => {
