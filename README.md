@@ -15,7 +15,7 @@ At the end, your stats unlock one of several endings — will you become an **Ec
 
 ---
 
-✨ Features  
+## ✨ Features  
 - **14 Days of Choices**: Every day presents you with a unique food scenario  
 - **Emoji Stats**: Track Health ❤️, Wallet 💰, and Environment 🌳 in a simple, visual way  
 - **Mini-Games**: Play fun challenges like ⚡ Quick Click, 🃏 Memory Game, 🥗 Eco-Plate, and 🛒 Supermarket Dash to keep the journey exciting  
