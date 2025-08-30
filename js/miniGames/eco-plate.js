@@ -211,7 +211,7 @@ function startEcoPlateGame(callback) {
         if (lowImpactCount >= targetVeggies && highImpactCount < maxJunk) {
             playerStats.env += 3;
             envChange = 3;
-            resultMessage = `🌿 Excellent! Env +3`;
+            resultMessage = `💚 Excellent! Veggies love you!  Env +3`;
             launchConfetti();
         } else if (highImpactCount >= maxJunk) {
             playerStats.env -= 3;
@@ -225,7 +225,7 @@ function startEcoPlateGame(callback) {
 
         container.innerHTML = `
             <div class="screen-container fade-in show">
-                <h2>Eco Plate Result</h2>
+                <h2>Game Over!</h2>
                 <p>${resultMessage}</p>
                 <br>
                 <button class="choice-btn" id="continue-btn">Continue</button>

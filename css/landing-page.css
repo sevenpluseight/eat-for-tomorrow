@@ -88,6 +88,7 @@ h1, h2, h3, .about-title, .features-title, .how-to-play-title {
   background: #ffffff;
   z-index: 1;
   box-sizing: border-box;
+  margin-top: -60px;
 }
 
 .hero-title {
