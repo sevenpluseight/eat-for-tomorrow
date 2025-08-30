@@ -145,13 +145,16 @@ function startMemoryMatchGame(callback) {
         if (timeLeft <= 0 || allMatched) {
             clearInterval(countdown);
 
+            let healthChange = 0;
             let resultMessage = "";
             if (allMatched) {
                 playerStats.health += 2;
+                healthChange= 2;
                 resultMessage = `🍀 Lucky brain! No pair left behind. Health +2 💖`;
                 launchConfetti();
             } else {
                 playerStats.health -= 2;
+                healthChange= -2;
                 resultMessage = `💤 Oops... ran out of time! Cards still hiding 😅 Health -2`;
             }
             updateStats();
@@ -164,6 +167,10 @@ function startMemoryMatchGame(callback) {
                     <button class="choice-btn" id="continue-btn" disabled>Continue</button>
                 </div>
             `;
+
+            setTimeout(() => {
+                showFloatingChange(healthChange, 0, 0, null);
+            }, 200);
 
             const continueBtn = document.getElementById("continue-btn");
             setTimeout(() => { continueBtn.disabled = false; }, 1000);

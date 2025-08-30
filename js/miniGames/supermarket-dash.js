@@ -190,6 +190,16 @@ function startSupermarketDash(callback) {
                 <button class="choice-btn" id="continue-btn">Continue</button>
             </div>
         `;
+
+        setTimeout(() => {
+            showFloatingChange(
+                playerStats.health, 
+                playerStats.wallet, 
+                playerStats.env, 
+                null
+            );
+        }, 200);
+
         document.getElementById("continue-btn").addEventListener("click", () => {
             if (callback) callback();
         });
