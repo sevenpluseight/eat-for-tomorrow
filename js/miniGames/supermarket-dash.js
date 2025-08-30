@@ -20,11 +20,6 @@ function startSupermarketDash(callback) {
     `;
     container.appendChild(rules);
 
-    const scoreDisplay = document.createElement("p");
-    scoreDisplay.id = "dash-score";
-    updateDashScore();
-    container.appendChild(scoreDisplay);
-
     const playArea = document.createElement("div");
     playArea.classList.add("dash-play-area");
     playArea.style.position = "relative";
@@ -32,7 +27,7 @@ function startSupermarketDash(callback) {
     playArea.style.height = "300px";
     playArea.style.border = "2px solid #ccc";
     playArea.style.overflow = "hidden";
-    playArea.style.backgroundColor = "#f0f0f0";
+    // playArea.style.backgroundColor = "#f0f0f0";
     container.appendChild(playArea);
 
     const basket = document.createElement("div");
@@ -65,6 +60,8 @@ function startSupermarketDash(callback) {
 
     let timeLeft = 15;
     let finished = false;
+    let caughtHealthy = 0;
+    let caughtJunk = 0;
 
     function moveBasket(e) {
         if (finished) return;
@@ -89,115 +86,95 @@ function startSupermarketDash(callback) {
     }, 1000);
 
     function spawnItem() {
-        if (finished) return;
+      if (finished) return;
 
-        const itemData = items[Math.floor(Math.random() * items.length)];
-        const itemEl = document.createElement("div");
-        itemEl.classList.add("dash-item");
-        itemEl.textContent = itemData.emoji;
-        itemEl.style.position = "absolute";
-        itemEl.style.width = "40px";
-        itemEl.style.height = "40px";
-        itemEl.style.fontSize = "24px";
-        itemEl.style.left = Math.random() * (playArea.clientWidth - 40) + "px";
-        itemEl.style.top = "-40px";
-        itemEl.style.textAlign = "center";
-        playArea.appendChild(itemEl);
+      const itemData = items[Math.floor(Math.random() * items.length)];
+      const itemEl = document.createElement("div");
+      itemEl.classList.add("dash-item");
+      itemEl.textContent = itemData.emoji;
+      itemEl.style.position = "absolute";
+      itemEl.style.width = "40px";
+      itemEl.style.height = "40px";
+      itemEl.style.fontSize = "24px";
+      itemEl.style.left = Math.random() * (playArea.clientWidth - 40) + "px";
+      itemEl.style.top = "-40px";
+      itemEl.style.textAlign = "center";
+      playArea.appendChild(itemEl);
 
-        let fallSpeed = 1 + Math.random() * 0.2; // Originally was 2 + Math.random() * 3
+      let fallSpeed = 1 + Math.random() * 0.2;
 
-        function fall() {
-            if (finished) { itemEl.remove(); return; }
-            let y = parseFloat(itemEl.style.top);
-            let x = parseFloat(itemEl.style.left);
+      function fall() {
+          if (finished) { itemEl.remove(); return; }
+          let y = parseFloat(itemEl.style.top);
+          let x = parseFloat(itemEl.style.left);
 
-            // if (
-            //     y + 40 >= playArea.clientHeight - 50 &&
-            //     x + 40 > basketX &&
-            //     x < basketX + 50
-            // ) {
-            //     if (itemData.type === "low") { 
-            //         playerStats.health += 1; 
-            //         playerStats.env += 1; 
-            //     }
-            //     if (itemData.type === "high") { 
-            //         playerStats.health -= 1; 
-            //         playerStats.env -= 1; 
-            //     }
-            //     if (itemData.type === "coin") { 
-            //         playerStats.wallet += 1; 
-            //     }
+          if (y + 40 >= playArea.clientHeight - 50 &&
+              x + 40 > basketX &&
+              x < basketX + 50
+          ) {
+              const targetY = playArea.clientHeight - 50; 
+              const dropSpeed = 4;
 
-            if (
-                y + 40 >= playArea.clientHeight - 50 &&
-                x + 40 > basketX &&
-                x < basketX + 50
-            ) {
-                // Healthy food
-                if (itemData.type === "low") { 
-                    playerStats.health += 1; 
-                    playerStats.env += 1; 
-                    playArea.classList.add("healthy-catch");
-                    setTimeout(() => playArea.classList.remove("healthy-catch"), 300);
-                }
+              function dropToBasket() {
+                  y = parseFloat(itemEl.style.top);
+                  if (y < targetY) {
+                      itemEl.style.top = Math.min(y + dropSpeed, targetY) + "px";
+                      requestAnimationFrame(dropToBasket);
+                  } else {
+                      itemEl.remove();
+                      playArea.classList.add(
+                          itemData.type === "low" ? "healthy-catch" :
+                          itemData.type === "high" ? "junk-catch" :
+                          "coin-catch"
+                      );
+                      setTimeout(() => playArea.classList.remove("healthy-catch","junk-catch","coin-catch"), 150);
 
-                // Junk food
-                if (itemData.type === "high") { 
-                    playerStats.health -= 1; 
-                    playerStats.env -= 1; 
-                    playArea.classList.add("junk-catch");
-                    setTimeout(() => playArea.classList.remove("junk-catch"), 300);
-                }
+                      if (itemData.type === "low") caughtHealthy++;
+                      if (itemData.type === "high") caughtJunk++;
+                      if (itemData.type === "coin") playerStats.wallet++;
+                      updateDashScore();
+                  }
+              }
+              dropToBasket();
+              return;
+          }
 
-                // Coin
-                if (itemData.type === "coin") { 
-                    playerStats.wallet += 1; 
-                    playArea.classList.add("coin-catch");
-                    setTimeout(() => playArea.classList.remove("coin-catch"), 300);
-                }
+          if (y + 40 > playArea.clientHeight) {
+              itemEl.remove();
+              return;
+          }
 
-                updateDashScore();
-                itemEl.remove();
-                return;
-            }
+          itemEl.style.top = y + fallSpeed + "px";
+          requestAnimationFrame(fall);
+      }
 
-            if (y + 40 > playArea.clientHeight) { itemEl.remove(); return; }
-            itemEl.style.top = y + fallSpeed + "px";
-            requestAnimationFrame(fall);
-        }
-        fall();
-        setTimeout(spawnItem, 300 + Math.random() * 500);
+      fall();
+      setTimeout(spawnItem, 300 + Math.random() * 500);
     }
-
-    function updateDashScore() {
-        const healthEmoji = playerStats.health <= -3 ? "🤒" : playerStats.health >= 4 ? "❤️" : "😐";
-        const walletEmoji = playerStats.wallet <= -1 ? "💸" : playerStats.wallet >= 5 ? "💎" : "💰";
-        const envEmoji = playerStats.env <= -2 ? "🏭" : playerStats.env >= 3 ? "🌳" : "🌿";
-        scoreDisplay.textContent = `Health: ${healthEmoji} | Wallet: ${walletEmoji} | Env: ${envEmoji}`;
-    }
-
+    
     function endGame() {
         finished = true;
         clearInterval(timer);
         document.removeEventListener("keydown", moveBasket);
 
+        const netChange = caughtHealthy > caughtJunk ? 1 : -1;
+        playerStats.health += netChange;
+        playerStats.wallet += netChange;
+        playerStats.env += netChange;
+
         container.innerHTML = `
             <div class="screen-container fade-in show">
                 <h2>Supermarket Dash Result</h2>
                 <p>🎯 Time's up!</p>
-                <p>${scoreDisplay.textContent}</p>
+                <p>${caughtHealthy} healthy vs ${caughtJunk} junk food</p>
+                <p>All stats ${netChange > 0 ? "+1" : "-1"}!</p>
                 <br>
                 <button class="choice-btn" id="continue-btn">Continue</button>
             </div>
         `;
 
         setTimeout(() => {
-            showFloatingChange(
-                playerStats.health, 
-                playerStats.wallet, 
-                playerStats.env, 
-                null
-            );
+            showFloatingChange(netChange, netChange, netChange, null);
         }, 200);
 
         document.getElementById("continue-btn").addEventListener("click", () => {
