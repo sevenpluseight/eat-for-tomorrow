@@ -369,7 +369,7 @@ const days = [
       },
       {
         emoji: "🍳",
-        label: "Eggs & Veggie Omelet",
+        label: "Eggs & Veggie Omelette",
         description: "Healthy, filling, and makes you feel like a chef.",
         health: +2,
         wallet: -1,
