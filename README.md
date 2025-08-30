@@ -8,14 +8,6 @@
   <em>Eat For Tomorrow: Dual Theme Preview</em>
 </p>
 
-<p align="center">
-  <img src="assets/images/light-dark-theme-comparison.png" alt="Hero Section Light & Dark" width="800"/>
-</p>
-
-<p align="center">
-  <em>Eat For Tomorrow: Dual Theme Preview</em>
-</p>
-
 **Eat For Tomorrow** is a fun, story-based game where every bite matters 🍔🥗  
 Over **14 days**, you’ll make daily food choices that affect your **Health ❤️, Wallet 💰, and Environment 🌳**
 
@@ -23,7 +15,7 @@ At the end, your stats unlock one of several endings — will you become an **Ec
 
 ---
 
-## ✨ Features  
+✨ Features  
 - **14 Days of Choices**: Every day presents you with a unique food scenario  
 - **Emoji Stats**: Track Health ❤️, Wallet 💰, and Environment 🌳 in a simple, visual way  
 - **Mini-Games**: Play fun challenges like ⚡ Quick Click, 🃏 Memory Game, 🥗 Eco-Plate, and 🛒 Supermarket Dash to keep the journey exciting  
