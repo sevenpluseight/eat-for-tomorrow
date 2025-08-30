@@ -79,13 +79,13 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0 2rem;
+  padding: 0 clamp(1rem, 5vw, 2rem);
   background: #ffffff;
   z-index: 1;
 }
 
 .hero-title {
-  font-size: 8rem;
+  font-size: clamp(3rem, 8vw, 10rem);
   font-weight: 600;
   background: linear-gradient(135deg, #d40101, #ffb74c, #0059ff);
   -webkit-background-clip: text;
@@ -95,7 +95,7 @@
 }
 
 .hero-tagline {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 2vw, 5rem);
   font-weight: 500;
   color: black;
   white-space: nowrap;
@@ -118,9 +118,9 @@
 /* Hero Section - Start Game button */
 .hero-btn {
   display: inline-block;
-  margin-top: 4rem;
-  padding: 1rem 2.5rem;
-  font-size: 1.5rem;
+  margin-top: 1rem;
+  padding: clamp(0.8rem, 2vw, 1.2rem) clamp(2rem, 5vw, 2.5rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-weight: 600;
   color: white;
   text-decoration: none;
@@ -154,12 +154,13 @@
 .emoji-bg span {
   position: absolute;
   display: inline-block;
-  animation-name: floatCinematic;
+  animation-name: floatVertical;
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-timing-function: ease-in-out;
   z-index: 0;
   text-shadow: 0 0 6px rgba(0,0,0,0.15);
+  font-size: clamp(2rem, 3vw, 3.2rem);
 }
 
 /* @keyframes floatCinematic {
