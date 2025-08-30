@@ -33,7 +33,7 @@ At the end, your stats unlock one of several endings — will you become an **Ec
 |-----|-------------------|-----------------------------------------------|
 | 3   | ⚡ Quick Click     | A fast-paced reflex test — click as quickly as possible. |
 | 7   | 🃏 Memory Game     | Flip cards and match pairs. |
-| 9   | 🥗 Eco-Plate       | Choose healthy foods onto the plate. |
+| 11   | 🥗 Eco-Plate       | Choose healthy foods onto the plate. |
 | 13  | 🛒 Supermarket Dash| Catch healthy foods and coins in your trolley. |
 
 4. Choose from **4 different options** each day to shape your story.  
